@@ -1,0 +1,137 @@
+.login {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background-image: url('http://localhost:3000/static/background/login/sefhisehfuihsefi.png');
+    background-size: cover;
+    background-position: center center;
+}
+
+.login-box {
+    display: flex;
+    height: 90vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    h1 {
+        margin: -2rem 1rem 2rem;
+        color: white;
+    }
+}
+
+.login-content {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    width: 30rem;
+    max-width: 80vh;
+    max-height: 100vw;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.login-in {
+    height: 16rem;
+}
+
+.login-register {
+    height: 21rem;
+}
+
+.login-retrieve {
+    height: 21rem;
+}
+
+.login-btns {
+    position: relative;
+    padding: 0.5rem;
+    text-align: center;
+
+    button {
+        color: #606266;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+
+        &:hover {
+            color: darkcyan;
+        }
+    }
+
+    .login-btn-select {
+        color: darkcyan;
+    }
+}
+
+.login-retrieve-label {
+    color: darkcyan;
+    font-size: 1rem;
+    transform: scale(0.9);
+}
+
+.login-tips {
+    position: absolute;
+    color: #606266;
+    font-size: 1rem;
+    top: 0.5rem;
+    right: 0rem;
+    transform: scale(0.8);
+}
+
+.login-verify-btn {
+    width: 6.5rem;
+}
+
+.login-lines {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-line-1 {
+    padding: 1rem 0rem;
+    display: flex;
+    align-items: center;
+
+    label {
+        width: 5rem;
+        margin-right: 1rem;
+        white-space: nowrap;
+    }
+}
+
+.login-line-2 {
+    padding: 0.5rem 0rem;
+    display: flex;
+    align-items: center;
+
+    label {
+        flex-shrink: 0;
+        width: 4rem;
+        margin-right: 1rem;
+        white-space: nowrap;
+    }
+
+    .login-verify-btn {
+        margin-left: 0.5rem;
+    }
+}
+
+.login-options {
+    position: relative;
+    padding: 0.5rem;
+    text-align: center;
+
+    .login-option {
+        margin: 0rem 0.5rem;
+    }
+}
+
+.login-loading {
+    position: absolute;
+    right: 0rem;
+    bottom: 0.5rem;
+}

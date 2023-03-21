@@ -1,0 +1,41 @@
+.user-classify {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: darkcyan;
+    color: white;
+    height: 1.6rem;
+    border-radius: 0.1rem;
+    cursor: pointer;
+    overflow: hidden;
+
+    p {
+        margin-left: 0.2rem;
+        width: 6rem;
+        font-size: 0.8rem;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    &:hover .user-classify-grade {
+        transform: translateX(0%);
+    }
+}
+
+.user-classify-grade {
+    padding: 0rem 0.1rem;
+    position: absolute;
+    right: 0rem;
+    transition-duration: 0.3s;
+    background-color: darkcyan;
+    transform: translateX(100%);
+
+    label {
+        font-size: 0.8rem;
+    }
+}
+
+.user-classify-vertical {
+    margin: 0rem 0.2rem;
+}

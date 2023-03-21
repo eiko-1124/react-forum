@@ -1,0 +1,67 @@
+.tools {
+    position: fixed;
+    top: 80%;
+    right: 1rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.4rem;
+    transform: translateY(-100%);
+    z-index: 1000;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+
+    &::before {
+        display: block;
+        position: absolute;
+        content: '';
+        top: 0rem;
+        right: 0rem;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 0.4rem;
+        background-color: white;
+        z-index: 1;
+    }
+}
+
+.tools-icon {
+    position: relative;
+    color: darkcyan;
+    z-index: 2;
+}
+
+.tool {
+    position: absolute;
+    top: 0rem;
+    left: 0rem;
+    width: 3rem;
+    height: 3rem;
+    background-color: rgba($color: white, $alpha: 0.98);
+    color: darkcyan;
+    font-size: 0.9rem;
+    text-align: center;
+    line-height: 3rem;
+    border-radius: 0.4rem;
+    transform: translate(0%, 0%);
+    transition-duration: 0.5s;
+    z-index: -1;
+}
+
+.tool-1 {
+    transform: translate(-20%, -130%);
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.tool-2 {
+    transform: translate(-140%, -70%);
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.tool-3 {
+    transform: translate(-140%, 70%);
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.tool-4 {
+    transform: translate(-20%, 130%);
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}

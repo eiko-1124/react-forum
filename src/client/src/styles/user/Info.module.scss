@@ -1,0 +1,24 @@
+.user-avatar {
+    display: block;
+    margin: 0rem auto;
+}
+
+.user-horizontal {
+    margin: 0.5rem 0rem;
+    color: darkcyan;
+}
+
+.user-vertical {
+    margin: 0rem 0.5rem;
+}
+
+.user-labels {
+    margin: 0.5rem 0rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-label {
+    margin-left: 0.2rem;
+}

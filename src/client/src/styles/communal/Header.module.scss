@@ -1,0 +1,81 @@
+.header {
+    margin: 0.5rem auto;
+    display: flex;
+    height: 5rem;
+    width: 75vw;
+    min-width: 65rem;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.98);
+}
+
+.header-icon {
+    margin: 0rem 1rem;
+    height: 150%;
+    width: auto;
+    background-color: transparent;
+}
+
+.header-input-content {
+    position: relative;
+    flex: 1;
+}
+
+.header-input-btn {
+    margin-left: 0.5rem;
+}
+
+.header-input-panel {
+    position: absolute;
+    padding: 0.5rem;
+    top: 2.4rem;
+    width: 100%;
+    min-height: 2rem;
+    background-color: rgba(255, 255, 255, 0.98);
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    z-index: 1000;
+    border-radius: 0.1rem;
+    overflow: hidden;
+
+    ul {
+        padding: 0rem;
+        list-style: none;
+    }
+}
+
+.header-input-li {
+
+    display: flex;
+    cursor: pointer;
+    overflow: hidden;
+
+    p {
+        padding: 0.2rem;
+        color: #606266;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    &:hover {
+        &>p {
+            color: darkcyan;
+        }
+    }
+}
+
+.header-input-target {
+    h4 {
+        padding: 0.2rem 0.4rem;
+    }
+
+    p {
+        padding: 0.2rem 0.4rem;
+    }
+
+    &:hover {
+        h4 {
+            color: darkcyan;
+        }
+    }
+}

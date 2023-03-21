@@ -1,0 +1,29 @@
+.post {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba($color: white, $alpha: 0.98);
+}
+
+.post-title {
+    position: relative;
+    padding: 0rem 0.5rem;
+}
+
+.post-title>.post-horizontal {
+    margin: 0.5rem 0rem 0rem;
+    width: 15rem;
+    color: darkcyan;
+}
+
+.post-input-title {
+    margin: 0.5rem 0rem;
+    display: flex;
+    align-items: center;
+
+    label {
+        margin-right: 0.5rem;
+        flex-shrink: 0;
+    }
+}

@@ -1,0 +1,49 @@
+.ranking {
+    padding: 0.5rem;
+    background-color: rgba($color: white, $alpha: 0.98);
+}
+
+.ranking-horizontal {
+    margin: 0.5rem 0rem 0rem;
+    width: 14rem;
+    color: darkcyan;
+}
+
+.ranking-list {
+    margin-top: 0.5rem;
+    padding: 0rem;
+    list-style: none;
+
+    li {
+        margin: 0.5rem 0rem;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    span {
+        padding: 0rem 0.5rem;
+        color: #666;
+    }
+
+    label {
+        margin: 0rem 0.4rem;
+        color: #666;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: inherit;
+    }
+
+    &>li:nth-child(-n + 3) {
+        span {
+            background-color: #FF7F42;
+            color: white;
+            border-radius: 0.2rem;
+        }
+
+        label {
+            color: #FF7F42;
+        }
+    }
+}

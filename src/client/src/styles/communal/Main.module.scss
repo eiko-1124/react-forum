@@ -1,0 +1,53 @@
+.main {
+    padding-bottom: 2rem;
+    width: 100vw;
+    height: 100vh;
+    overflow: scroll;
+    background-size: cover;
+    background-position: center center;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.main-content {
+    margin: 0rem auto;
+    display: flex;
+    width: 75vw;
+    min-width: 65rem;
+}
+
+.main-aside {
+    margin-right: 0.5rem;
+    width: 15rem;
+}
+
+.main-body {
+    width: calc(100% - 15.5rem);
+}
+
+.main-section {
+    margin-top: 0.5rem;
+    display: flex;
+}
+
+.main-recommend {
+    flex: 1;
+    overflow: hidden;
+}
+
+.main-ranking {
+    position: relative;
+    margin-left: 0.5rem;
+    width: 15rem;
+}
+
+.main-ranking-sticky {
+    position: sticky;
+    top: 0.5rem;
+}
+
+.main-post {
+    margin-top: 0.5rem;
+}

@@ -1,0 +1,53 @@
+.classify {
+    position: relative;
+    background-color: rgba($color: white, $alpha: 0.98);
+}
+
+.classify-title {
+    position: relative;
+    padding: 0.5rem 0.5rem 0rem;
+}
+
+.classify-title>.classify-horizontal {
+    margin: 0.5rem 0rem 0rem;
+    width: 15rem;
+    color: darkcyan;
+}
+
+.classify-btns {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    top: 50%;
+    right: 0.5rem;
+    opacity: 0.6;
+    transform: scale(0.9) translateY(-50%);
+}
+
+.classify-content {
+    padding: 0.5rem;
+    overflow: hidden;
+}
+
+.classify-float {
+    padding: 0.5rem;
+    float: left;
+    display: flex;
+}
+
+.classify-info {
+    margin-left: 0.5rem;
+    width: 8rem;
+}
+
+.classify-info-name {
+    margin-bottom: 0.2rem;
+}
+
+.classify-info-opacity {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    opacity: 0.9;
+    transform: scale(0.8) translateX(-12%);
+}

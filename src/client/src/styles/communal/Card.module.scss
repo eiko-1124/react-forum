@@ -1,0 +1,14 @@
+.card {
+    padding: 0.5rem;
+    width: 100%;
+    overflow: hidden;
+
+    p {
+        word-wrap: break-word;
+        word-break: break-all;
+    }
+}
+
+.card-divider {
+    margin-bottom: 0rem;
+}

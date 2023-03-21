@@ -1,0 +1,50 @@
+.details {
+    background-color: rgba($color: white, $alpha: 0.98);
+}
+
+.details-title {
+    position: relative;
+    padding: 0.5rem 0.5rem 0rem;
+}
+
+.details-title>.details-horizontal {
+    margin: 0.5rem 0rem 0rem;
+    width: 15rem;
+    color: darkcyan;
+}
+
+.details-content {
+    padding: 0.5rem;
+    display: flex;
+}
+
+.details-avatar {
+    flex-shrink: 0;
+}
+
+.details-info {
+    margin-left: 0.5rem;
+
+    h4 {
+        margin-top: 0.2rem;
+    }
+
+    button {
+        margin-right: 0.5rem;
+        border: none;
+        background-color: transparent;
+        color: darkcyan;
+        cursor: pointer;
+    }
+}
+
+.details-info-introdution {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    max-height: 4rem;
+    overflow: hidden;
+    text-overflow: clip;
+    font-size: 0.9rem;
+    color: #606266;
+}

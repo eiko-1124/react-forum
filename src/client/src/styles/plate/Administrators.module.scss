@@ -1,0 +1,33 @@
+.administrators {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba($color: white, $alpha: 0.98);
+}
+
+.administrators-horizontal {
+    margin: 0.5rem 0rem;
+    color: darkcyan;
+}
+
+.administrators-btn {
+    margin-top: 0.5rem;
+}
+
+.administrators-content {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    overflow: hidden;
+}
+
+.administrators-avater {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    label {
+        margin: 0.2rem 0rem;
+    }
+}

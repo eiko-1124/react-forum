@@ -1,0 +1,15 @@
+.searchBox {
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba($color: white, $alpha: 0.98);
+}
+
+.searchBox-horizontal {
+    margin: 0.5rem 0rem;
+    color: darkcyan;
+}
+
+.searchBox-btn {
+    margin-top: 0.5rem;
+}
