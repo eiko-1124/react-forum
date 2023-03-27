@@ -1,0 +1,30 @@
+.craetePlate {
+    background-color: rgba($color: white, $alpha: 0.98);
+}
+
+.craetePlate-title {
+    position: relative;
+    padding: 0.5rem 0.5rem 0rem;
+}
+
+.craetePlate-title>.craetePlate-horizontal {
+    margin: 0.5rem 0rem 0rem;
+    width: 15rem;
+    color: darkcyan;
+}
+
+.craetePlate-input {
+    display: flex;
+    padding: 0.5rem 1rem;
+    align-items: center;
+
+    label {
+        width: 4rem;
+        flex-shrink: 0;
+        color: #606266;
+    }
+}
+
+.craetePlate-input {
+    flex: 1;
+}

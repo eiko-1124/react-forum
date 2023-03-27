@@ -10,3 +10,21 @@ export interface simpleSearchRes {
         name: string
     }[]
 }
+
+export interface createNewPlateRes {
+    res: number,
+    id?: string
+}
+
+export interface detailsRes {
+    res: number,
+    target?: {
+        id: string,
+        name: string,
+        introduction: string,
+        usum: number,
+        isum: number,
+        avatar: string,
+        tag: string
+    }
+}

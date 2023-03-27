@@ -105,7 +105,7 @@ const formCheck = (): Function => {
 
 const goRegister = async (form: form): Promise<number> => {
     try {
-        const res: { res: number } = await axios.post('/login/register', {
+        const res: { res: number } = await axios.lPost('/login/register', {
             ...form,
             pswd: md5(form.pswd)
         }) as { res: number }

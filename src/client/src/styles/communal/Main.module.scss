@@ -5,6 +5,7 @@
     overflow: scroll;
     background-size: cover;
     background-position: center center;
+    scroll-behavior: smooth;
 
     &::-webkit-scrollbar {
         display: none;
@@ -29,6 +30,10 @@
 
 .main-section {
     margin-top: 0.5rem;
+    display: flex;
+}
+
+.main-invitation {
     display: flex;
 }
 

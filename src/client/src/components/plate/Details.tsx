@@ -1,8 +1,20 @@
 import React from 'react'
 import style from '@/styles/plate/Details.module.scss'
-import { Avatar, Button, Divider } from 'tdesign-react'
+import { Avatar, Button, Divider, Tag } from 'tdesign-react'
 
-export default function Details(): JSX.Element {
+type Props = {
+    title: string, vSlot?: JSX.Element, target: {
+        id: string,
+        name: string,
+        introduction: string,
+        usum: number,
+        isum: number,
+        avatar: string,
+        tag: string
+    }
+}
+
+export default function Details({ title, vSlot, target }: Props): JSX.Element {
     return (
         <div className={style['details']}>
             <div className={style['details-title']}>
@@ -11,24 +23,24 @@ export default function Details(): JSX.Element {
                     dashed={false}
                     layout="horizontal"
                     className={style['details-horizontal']}
-                >板块</Divider>
+                >{title}</Divider>
             </div>
             <div className={style['details-content']}>
-                <Avatar className={style['details-avatar']} shape="round" size='10rem'>
-                    W
+                <Avatar className={style['details-avatar']} shape="round" size='10rem' image={target.avatar}>
                 </Avatar>
                 <div className={style['details-info']}>
                     <Button theme="success" variant="base">
                         已关注
                     </Button>
-                    <h4>第一个论坛</h4>
-                    <p><button>版主:lysmane</button></p>
-                    <p><button>关注:20000</button><button>帖子:20000</button></p>
+                    {vSlot}
+                    <h3>{target.name}</h3>
+                    <p>
+                        <Tag className={style['details-tag']} theme="primary" variant="light">版主:lysmane</Tag>
+                        <Tag className={style['details-tag']} theme="primary" variant="light">关注:{target.usum}</Tag>
+                        <Tag className={style['details-tag']} theme="primary" variant="light">帖子:{target.isum}</Tag>
+                        <Tag className={style['details-tag']} theme="warning" variant="light" shape="mark">{target.tag}</Tag></p>
                     <p className={style['details-info-introdution']}>
-                        这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介
-                        这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介
-                        这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介这是简介
-                        这是简介这是简介这是简介这是简介这是简介这是简介这是简介
+                        简介:{target.introduction}
                     </p>
                 </div>
             </div>

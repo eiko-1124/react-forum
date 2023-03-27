@@ -1,5 +1,5 @@
 import { Avatar, Button, Image, Input } from 'tdesign-react'
-import { SearchIcon } from 'tdesign-icons-react'
+import { HomeIcon, SearchIcon } from 'tdesign-icons-react'
 import style from '@/styles/communal/Header.module.scss'
 import useHeader from '@/core/communal/useHeader'
 import { useRef } from 'react'
@@ -40,8 +40,11 @@ export default function (): JSX.Element {
                 </ul>
             </div>}
         </div>
-        <Button theme="primary" variant="base" className={style['header-input-btn']}>
+        <Button theme="primary" variant="base" className={style['header-input-btn']} onClick={() => methods.goSearch(keyWord)}>
             <SearchIcon></SearchIcon>
+        </Button>
+        <Button theme="primary" variant="base" className={style['header-input-btn']} onClick={methods.goHome}>
+            <HomeIcon />
         </Button>
         <Image
             className={style['header-icon']}

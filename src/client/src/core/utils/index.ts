@@ -15,6 +15,7 @@ export function throttle(func: Function, delay: number): Function {
 }
 
 export const getCookie = (cname: string): string => {
+    if (typeof window === 'undefined') return ''
     let name: string = cname + "=";
     const ca: string[] = document.cookie.split(';');
     for (let i = 0; i < ca.length; i++) {

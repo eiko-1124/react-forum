@@ -1,12 +1,11 @@
-import React from 'react'
 import style from '@/styles/plate/Post.module.scss'
 import { Button, Divider, Input } from 'tdesign-react'
-import { ImageIcon, LinkIcon, SoundIcon, VideoIcon } from 'tdesign-icons-react'
-import dynamic from 'next/dynamic'
+import usePost from '@/core/plate/usePost'
+import Editer from './Editor'
 
 export default function Post(): JSX.Element {
 
-    const MyEditer = dynamic(() => import('@/components/plate/Editor'), { ssr: false })
+    const { methods, title, editer } = usePost()
 
     return (
         <div className={style['post']}>
@@ -20,10 +19,10 @@ export default function Post(): JSX.Element {
             </div>
             <div className={style['post-input-title']}>
                 <label>标题</label>
-                <Input placeholder='填写标题'></Input>
+                <Input placeholder='填写标题' ref={title} maxlength={20}></Input>
             </div>
-            <MyEditer></MyEditer>
-            <Button style={{ marginTop: '0.5rem' }} theme="primary" variant="base">
+            <Editer ref={editer}></Editer>
+            <Button style={{ marginTop: '0.5rem' }} theme="primary" variant="base" onClick={() => methods.submit()}>
                 发布
             </Button>
         </div>

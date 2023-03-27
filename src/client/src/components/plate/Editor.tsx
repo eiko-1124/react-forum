@@ -1,16 +1,24 @@
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
 
-import React, { useState, useEffect } from 'react'
-import { Editor, Toolbar } from '@wangeditor/editor-for-react'
+import React, { useState, useEffect, useImperativeHandle, forwardRef } from 'react'
 import { IDomEditor, IEditorConfig, IToolbarConfig } from '@wangeditor/editor'
 import style from '@/styles/plate/Editer.module.scss'
+import dynamic from 'next/dynamic'
 
-function MyEditor() {
+const MyEditor = dynamic(() => import('@wangeditor/editor-for-react').then(mod => mod.Editor), { ssr: false })
+const MyToolBar = dynamic(() => import('@wangeditor/editor-for-react').then(mod => mod.Toolbar), { ssr: false })
+
+export default forwardRef((props, ref): JSX.Element => {
     // editor 实例
     const [editor, setEditor] = useState<IDomEditor | null>(null)
 
-    // 编辑器内容
     const [html, setHtml] = useState('<p>hello</p>')
+
+    useImperativeHandle(ref, () => ({
+        getValue() {
+            return html
+        }
+    }))
 
     // 工具栏配置
     const toolbarConfig: Partial<IToolbarConfig> = {}
@@ -18,6 +26,7 @@ function MyEditor() {
     // 编辑器配置
     const editorConfig: Partial<IEditorConfig> = {
         placeholder: '请输入内容...',
+        autoFocus: false,
         MENU_CONF: {
             uploadImage: {
                 fieldName: 'file',
@@ -40,25 +49,21 @@ function MyEditor() {
     }, [editor])
 
     return (
-        <>
-            <div className={style['editor']}>
-                <Toolbar
-                    editor={editor}
-                    defaultConfig={toolbarConfig}
-                    mode="default"
-                    className={style['editor-tool']}
-                />
-                <Editor
-                    defaultConfig={editorConfig}
-                    value={html}
-                    onCreated={setEditor}
-                    onChange={editor => setHtml(editor.getHtml())}
-                    mode="default"
-                    className={style['editor-content']}
-                />
-            </div>
-        </>
+        <div className={style['editor']}>
+            <MyToolBar
+                editor={editor}
+                defaultConfig={toolbarConfig}
+                mode="default"
+                className={style['editor-tool']}
+            />
+            <MyEditor
+                defaultConfig={editorConfig}
+                value={html}
+                onCreated={setEditor}
+                onChange={editor => setHtml(editor.getHtml())}
+                mode="default"
+                className={style['editor-content']}
+            />
+        </div>
     )
-}
-
-export default MyEditor
+})

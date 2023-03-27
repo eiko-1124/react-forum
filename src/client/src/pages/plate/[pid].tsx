@@ -12,8 +12,44 @@ import Publish from '@/components/plate/Publish'
 import Administrators from '@/components/plate/Administrators'
 import Notice from '@/components/home/Notice'
 import Post from '@/components/plate/Post'
+import { GetStaticPaths, GetStaticProps } from 'next'
+import axios from '@/core/axios'
 
-export default function index(): JSX.Element {
+type Props = {
+    res: number,
+    target?: {
+        id: string,
+        name: string,
+        introduction: string,
+        usum: number,
+        isum: number,
+        avatar: string,
+        tag: string
+    }
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+    return {
+        paths: [],
+        fallback: 'blocking'
+    }
+}
+
+export const getStaticProps: GetStaticProps = async (content) => {
+    const id: string = content.params['id'] as string
+    let props: Props
+    try {
+        const res: Props = await axios.get('/plate/getDetails', { pid: id }) as Props
+        if (res.res === 1) props = res
+        else return { notFound: true }
+    } catch (error) {
+        console.log(error)
+        return { notFound: true }
+    }
+    return { props }
+}
+
+export default function index({ target }: Props): JSX.Element {
     const bgStr = 'url(http://localhost:3000/static/background/1.jpg)'
     return (
         <div className={styles.main} style={{ backgroundImage: bgStr }}>
@@ -25,7 +61,7 @@ export default function index(): JSX.Element {
                 </aside>
                 <section className={styles['main-body']}>
                     <section className={styles['main-classify']}>
-                        <Details></Details>
+                        <Details target={target} title='板块'></Details>
                     </section>
                     <section className={styles['main-section']}>
                         <section className={styles['main-recommend']}>

@@ -1,0 +1,14 @@
+.invitationList {
+    background-color: rgba($color: white, $alpha: 0.98);
+}
+
+.invitationList-title {
+    position: relative;
+    padding: 0.5rem 0.5rem 0rem;
+}
+
+.invitationList-title>.invitationList-horizontal {
+    margin: 0.5rem 0rem 0rem;
+    width: 15rem;
+    color: darkcyan;
+}

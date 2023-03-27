@@ -1,7 +1,6 @@
 import { useState } from "react"
 import axios from "../axios"
 import { useRouter } from "next/router"
-import { query } from "express"
 
 type element = {
     current: {
@@ -26,7 +25,7 @@ export default () => {
         setPanelState(true)
     }
 
-    const disFocus = (e): void => {
+    const disFocus = (): void => {
         setTimeout(() => setPanelState(false), 200)
     }
 
@@ -55,6 +54,18 @@ export default () => {
         })
     }
 
+    const goSearch = (input: element) => {
+        const keyWord: string = input.current.inputElement.value
+        if (keyWord.length > 0) {
+            router.push({
+                pathname: '/search/[keyWord]',
+                query: { keyWord }
+            })
+        }
+    }
+
+    const goHome = () => router.push('/')
+
     const state = {
         panelState,
         listState,
@@ -62,7 +73,7 @@ export default () => {
     }
 
     const methods = {
-        onFocus, disFocus, simpleSearch, goPlate
+        onFocus, disFocus, simpleSearch, goPlate, goSearch, goHome
     }
 
     return { state, methods }

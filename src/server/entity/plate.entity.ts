@@ -9,8 +9,20 @@ export class plate {
     name: string
 
     @Column()
-    owner: string
+    introduction: string
 
     @Column()
-    introduction: string
+    usum: number
+
+    @Column()
+    isum: number
+
+    @Column()
+    avatar: string
+
+    @Column()
+    tag: string
+
+    @Column()
+    notice: string
 }
