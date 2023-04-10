@@ -10,8 +10,8 @@ type element = {
     }
 }
 
-type list = { id: string, name: string }[]
-type target = { id: string, name: string, introduction: string }
+type list = { pid: string, name: string }[]
+type target = { pid: string, name: string, introduction: string, avatar: string }
 
 export default () => {
 
@@ -37,7 +37,7 @@ export default () => {
             return
         }
         try {
-            const res = await axios.get('/plate/simpleSearch', { keyWord }) as { res: number, target: target, list: list }
+            const res = await axios.get('/local/search/simpleSearch', { keyWord }) as { res: number, target: target, list: list }
             if (res.res === 1) {
                 setTargetState(res.target)
                 setListState(res.list)

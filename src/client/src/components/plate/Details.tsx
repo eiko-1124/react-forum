@@ -4,7 +4,7 @@ import { Avatar, Button, Divider, Tag } from 'tdesign-react'
 
 type Props = {
     title: string, vSlot?: JSX.Element, target: {
-        id: string,
+        pid: string,
         name: string,
         introduction: string,
         usum: number,

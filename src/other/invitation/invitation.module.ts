@@ -7,6 +7,6 @@ import { invitation } from '#/entity/invitation.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([invitation])],
   controllers: [InvitationController],
-  providers: [InvitationService]
+  providers: [InvitationService],
 })
 export class InvitationModule { }

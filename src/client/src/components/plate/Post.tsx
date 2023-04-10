@@ -7,6 +7,8 @@ export default function Post(): JSX.Element {
 
     const { methods, title, editer } = usePost()
 
+
+
     return (
         <div className={style['post']}>
             <div className={style['post-title']}>

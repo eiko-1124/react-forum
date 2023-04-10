@@ -59,7 +59,7 @@ const checkForm = (userValue: string, pswdValue: string): (boolean | form) => {
 
 const goSignIn = async (form: form): Promise<number> => {
     try {
-        const res: { res: number } = await axios.lPost('/login/signIn',
+        const res: { res: number } = await axios.lPost('/local/login/signIn',
             form) as { res: number }
         return res.res
     } catch (error: unknown) {

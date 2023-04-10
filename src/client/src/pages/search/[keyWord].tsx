@@ -15,7 +15,7 @@ import axios from '@/core/axios'
 type Props = {
     res: number,
     target?: {
-        id: string,
+        pid: string,
         name: string,
         introduction: string,
         usum: number,
@@ -24,7 +24,7 @@ type Props = {
         tag: string
     },
     plateLists: {
-        id: string,
+        pid: string,
         name: string,
         usum: number,
         isum: number,
@@ -44,7 +44,7 @@ export const getStaticProps: GetStaticProps = async (content) => {
     const keyWord: string = content.params['keyWord'] as string
     let props = {}
     try {
-        const res: Props = await axios.get('/search/all', { keyWord }) as Props
+        const res: Props = await axios.get('/local/search/all', { keyWord, page: 0 }) as Props
         if (res.res === 1) props = res
     } catch (error) {
         console.log(error)

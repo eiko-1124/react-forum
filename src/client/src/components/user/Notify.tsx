@@ -8,8 +8,8 @@ export default function Notify(): JSX.Element {
         <FoldCard title='消息板块' col={1}>
             <div className={style['notify']}>
                 <Badge count={2}>
-                    <div className={style['notify-btn']}>&#xe93b;</div>
-                    <p>@我</p>
+                    <div className={style['notify-btn']}>&#xe600;</div>
+                    <p>点赞</p>
                 </Badge>
                 <Badge count={0}>
                     <div className={style['notify-btn']}>&#xe7ac;</div>

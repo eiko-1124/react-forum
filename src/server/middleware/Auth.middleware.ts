@@ -2,17 +2,15 @@ import { Request, Response } from "express"
 import jwt from 'jsonwebtoken'
 
 export function AuthMiddleware(req: Request, res: Response, next: Function) {
-    next()
-    // const token: string = req.headers['authorization']
-    // const paths: string[] = req.url.split('/').filter(path => path.length > 0)
-    // if (paths[0] === 'login') next()
-    // else {
-    //     if (token) jwt.verify(token, 'lysmane', err => {
-    //         if (err) {
-    //             console.log(err)
-    //             res.sendStatus(302)
-    //         } else next()
-    //     })
-    //     else res.sendStatus(302)
-    // }
+    const token: string = req.headers['authorization']
+    if (req.url.indexOf('/admin/') != -1) {
+        if (token) jwt.verify(token, 'lysmane', err => {
+            if (err) {
+                console.log(err)
+                res.sendStatus(302)
+            } else next()
+        })
+        else res.sendStatus(302)
+    }
+    else next()
 }

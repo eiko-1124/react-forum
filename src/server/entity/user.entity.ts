@@ -1,9 +1,9 @@
-import { Entity, PrimaryColumn, Column } from "typeorm"
+import { Entity, PrimaryColumn, Column, CreateDateColumn } from "typeorm"
 
 @Entity()
 export class user {
-    @PrimaryColumn()
-    id: string
+    @PrimaryColumn({ name: 'u_id' })
+    uid: string
 
     @Column()
     pswd: string
@@ -13,4 +13,10 @@ export class user {
 
     @Column()
     name: string
+
+    @Column()
+    avatar: string
+
+    @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+    date: Date
 }

@@ -1,0 +1,20 @@
+.personalCenter {
+    padding: 0.5rem;
+    background-color: rgba($color: white, $alpha: 0.98);
+}
+
+.personalCenter-horizontal {
+    width: 15rem;
+    color: darkcyan;
+    margin: 0.5rem 0rem;
+}
+
+.personalCenter-bg {
+    height: 10rem;
+    background-size: cover;
+    background-position: center center;
+}
+
+.personalCenter-content {
+    min-height: 50vh;
+}

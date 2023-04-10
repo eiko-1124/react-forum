@@ -39,3 +39,26 @@
 .user-classify-vertical {
     margin: 0rem 0.2rem;
 }
+
+.user-classify-text {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    text-align: center;
+    transform: scale(0.9);
+}
+
+.user-classify-btn {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    height: 1.2rem;
+
+    button {
+        position: absolute;
+        bottom: 0rem;
+        right: 0.5rem;
+        background-color: transparent;
+        border: none;
+        color: darkcyan;
+        font-size: 0.8rem;
+    }
+}

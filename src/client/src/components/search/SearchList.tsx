@@ -5,7 +5,7 @@ import { RootListIcon, UserIcon } from 'tdesign-icons-react'
 
 type Props = {
     list: {
-        id: string,
+        pid: string,
         name: string,
         usum: number,
         isum: number,
@@ -28,7 +28,7 @@ export default function SearchList({ list, listSum }: Props): JSX.Element {
             </div>
             {list.length > 0 && <div className={style['searchList-content']}>
                 {list.map(site => {
-                    return <div className={style['searchList-float']} key={site.id}>
+                    return <div className={style['searchList-float']} key={site.pid}>
                         <Avatar shape="round" size='4rem' image={site.avatar}>
                         </Avatar>
                         <div className={style['searchList-info']}>

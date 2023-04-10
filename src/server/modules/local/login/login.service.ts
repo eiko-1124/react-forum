@@ -17,43 +17,40 @@ export class LoginService {
       res: 1
     }
     try {
-      const sUser: user[] = await this.userRepository.find({ select: { id: true, name: true }, where: { ...signInForm } })
-      if (sUser.length === 0) res.res = 2
+      const userRes: user[] = await this.userRepository.find({ select: { uid: true, name: true }, where: { ...signInForm } })
+      if (userRes.length === 0) res.res = 2
       else {
-        res.name = sUser[0].name
-        res.id = sUser[0].id
+        res.name = userRes[0].name
+        res.id = userRes[0].uid
       }
-      return res
     } catch (error) {
       console.log(error)
       res.res = -1
-      return res
     }
+    return res
   }
 
   async register(registerForm: registerForm): Promise<[registerRes, string]> {
     const res: registerRes = {
       res: 1
     }
+    const uid = createId()
     try {
       const name: number = await this.userRepository.count({ where: { name: registerForm.name } })
       if (name !== 0) {
         res.res = 2
-        return [res, '']
       }
       const email: number = await this.userRepository.count({ where: { email: registerForm.email } })
       if (email !== 0) {
         res.res = 3
-        return [res, '']
       }
-      const id = createId()
-      await this.userRepository.insert({ ...registerForm, id })
-      return [res, id]
+      await this.userRepository.insert({ ...registerForm, uid })
+      return [res, uid]
     } catch (error) {
       console.log(error)
       res.res = -1
-      return [res, '']
     }
+    return [res, uid]
   }
 
   async hasUser(params: { name?: string, email?: string }): Promise<hasUserRes> {
@@ -103,10 +100,10 @@ export class LoginService {
       const updateRes = await this.userRepository.update({ ...query }, { pswd: recoverForm.pswd })
       if (updateRes.affected === 0) res.res = 2
       else {
-        const sUser: user[] = await this.userRepository.find({ select: { id: true, name: true }, where: { email: query.email } })
+        const sUser: user[] = await this.userRepository.find({ select: { uid: true, name: true }, where: { email: query.email } })
         if (sUser.length === 0) res.res = 2
         else {
-          res.id = sUser[0].id
+          res.id = sUser[0].uid
           res.name = sUser[0].name
         }
       }

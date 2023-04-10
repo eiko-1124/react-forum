@@ -4,24 +4,24 @@ export interface signInRes {
     id?: string
 }
 
-export interface registerRes {
-    res: number
-}
-
-export interface hasUserRes {
-    res: number
-}
-
 export interface signInForm {
     name?: string,
     pswd: string,
     email?: string
 }
 
+export interface registerRes {
+    res: number
+}
+
 export interface registerForm {
     name: string,
     pswd: string,
     email: string
+}
+
+export interface hasUserRes {
+    res: number
 }
 
 export interface sendVerifyCodeRes {

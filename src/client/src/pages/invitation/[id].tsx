@@ -1,8 +1,11 @@
 import Header from '@/components/communal/Header'
+import Notice from '@/components/communal/Notice'
+import Ranking from '@/components/communal/Ranking'
 import Tool from '@/components/communal/Tool'
 import User from '@/components/communal/User'
+import PostComment from '@/components/invitation/PostComment'
 import Substance from '@/components/invitation/Substance'
-import Comments from '@/components/invitation/Comments'
+import Administrators from '@/components/plate/Administrators'
 import styles from '@/styles/communal/Main.module.scss'
 import React from 'react'
 
@@ -20,10 +23,13 @@ export default function Invitation(): JSX.Element {
                     <section className={styles['main-invitation']}>
                         <section className={styles['main-recommend']}>
                             <Substance></Substance>
-                            <Comments></Comments>
+                            <PostComment></PostComment>
                         </section>
                         <section className={styles['main-ranking']}>
                             <section className={styles['main-ranking-sticky']}>
+                                <Ranking></Ranking>
+                                <Administrators></Administrators>
+                                <Notice></Notice>
                             </section>
                         </section>
                     </section>

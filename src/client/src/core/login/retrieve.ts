@@ -76,7 +76,7 @@ const hasUser = async (user: string): Promise<boolean> => {
     if (/[\w]+@[A-Za-z]+(\.[A-Za-z0-9]+){1,2}/.test(user)) params.email = user
     else params.name = user
     try {
-        const res = await axios.lGet('/login/hasUser', params) as { res: number }
+        const res = await axios.lGet('/local/login/hasUser', params) as { res: number }
         if (res.res === 1) return true
         else return false
     } catch (error) {
@@ -91,7 +91,7 @@ const sendVerifyCode = async (user: string): Promise<boolean> => {
     if (/[\w]+@[A-Za-z]+(\.[A-Za-z0-9]+){1,2}/.test(user)) params.email = user
     else params.name = user
     try {
-        const res = await axios.lGet('/login/sendVerifyCode', params) as { res: number, code: string, email: string }
+        const res = await axios.lGet('/local/login/sendVerifyCode', params) as { res: number, code: string, email: string }
         if (res.res !== 1) return false
         code = res.code
         vEmail = res.email
@@ -172,7 +172,7 @@ const formCheck = (): Function => {
 
 const recover = async (form: form): Promise<number> => {
     try {
-        const res: { res: number } = await axios.lPost('/login/recover', {
+        const res: { res: number } = await axios.lPost('/local/login/recover', {
             ...form,
             pswd: md5(form.pswd)
         }) as { res: number }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Divider } from 'tdesign-react'
-import style from '@/styles/home/Notice.module.scss'
+import style from '@/styles/communal/Notice.module.scss'
 
 export default function Notice(): JSX.Element {
     return (

@@ -20,7 +20,6 @@
     align-items: center;
     top: 50%;
     right: 0.5rem;
-    opacity: 0.6;
     transform: scale(0.9) translateY(-50%);
 }
 
@@ -42,6 +41,7 @@
 
 .classify-info-name {
     margin-bottom: 0.2rem;
+    cursor: pointer;
 }
 
 .classify-info-opacity {
@@ -50,4 +50,13 @@
     font-size: 1rem;
     opacity: 0.9;
     transform: scale(0.8) translateX(-12%);
+}
+
+.classify-more {
+    padding: 0rem 0rem 1.5rem;
+
+    p {
+        text-align: center;
+        color: #606266;
+    }
 }

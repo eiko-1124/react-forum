@@ -25,9 +25,8 @@ export default function (): JSX.Element {
             />
             {state.panelState && <div className={style['header-input-panel']}>
                 <ul>
-                    {state.targetState && <li className={style['header-input-li']} onClick={() => methods.goPlate(state.targetState.id)}>
-                        <Avatar shape="round" size='4rem'>
-                            W
+                    {state.targetState && <li className={style['header-input-li']} onClick={() => methods.goPlate(state.targetState.pid)}>
+                        <Avatar shape="round" size='4rem' image={state.targetState.avatar}>
                         </Avatar>
                         <div className={style['header-input-target']}>
                             <h4>{state.targetState.name}</h4>
@@ -35,7 +34,7 @@ export default function (): JSX.Element {
                         </div>
                     </li>}
                     {state.listState.map(site => {
-                        return <li className={style['header-input-li']} key={site.name} onClick={() => methods.goPlate(site.id)}><p>{site.name}</p></li>
+                        return <li className={style['header-input-li']} key={site.pid} onClick={() => methods.goPlate(site.pid)}><p>{site.name}</p></li>
                     })}
                 </ul>
             </div>}

@@ -1,4 +1,4 @@
-import style from '@/styles/home/Ranking.module.scss'
+import style from '@/styles/communal/Ranking.module.scss'
 import { Divider } from 'tdesign-react'
 
 export default function (): JSX.Element {

@@ -2,17 +2,14 @@ import { Entity, PrimaryColumn, Column, CreateDateColumn } from "typeorm"
 
 @Entity()
 export class invitation {
-    @PrimaryColumn()
-    id: string
+    @PrimaryColumn({ name: 'i_id' })
+    iid: string
 
     @Column()
-    pid: string
+    owner: string
 
     @Column()
-    uid: string
-
-    @Column({ default: '0' })
-    top: string
+    plate: string
 
     @Column()
     title: string
@@ -21,17 +18,11 @@ export class invitation {
     text: string
 
     @Column({ default: 0 })
-    view: number
+    top: string
 
     @Column({ default: 0 })
-    like: number
-
-    @Column({ default: 0 })
-    comment: number
+    quality: number
 
     @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     date: Date
-
-    @Column({ default: '0' })
-    exc: string
 }

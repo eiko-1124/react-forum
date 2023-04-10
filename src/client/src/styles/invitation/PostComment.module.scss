@@ -1,0 +1,13 @@
+.postComment {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba($color: white, $alpha: 0.98);
+}
+
+.postComment-horizontal {
+    margin: 0.5rem 0rem;
+    color: darkcyan;
+    width: 15rem;
+}

@@ -4528,6 +4528,11 @@
   "resolved" "https://registry.npmmirror.com/neo-async/-/neo-async-2.6.2.tgz"
   "version" "2.6.2"
 
+"nest-router@^1.0.9":
+  "integrity" "sha512-ZyRdSVs9GczI+39B7tNXsxfBXQOYnEF6l/q2aLYG8wSEvRHRDXAlzZ1SIosDibM02pLahGkDNLFC+nZ8uzJGDQ=="
+  "resolved" "https://registry.npmmirror.com/nest-router/-/nest-router-1.0.9.tgz"
+  "version" "1.0.9"
+
 "next-tick@^1.1.0":
   "integrity" "sha512-CXdUiJembsNjuToQvxayPZF9Vqht7hewsvy2sOWafLvi2awflj9mOC6bHIg50orX8IJvWKY9wYQ/zB2kogPslQ=="
   "resolved" "https://registry.npmmirror.com/next-tick/-/next-tick-1.1.0.tgz"

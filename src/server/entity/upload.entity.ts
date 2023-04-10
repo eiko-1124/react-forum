@@ -1,9 +1,9 @@
-import { Entity, PrimaryColumn, Column } from "typeorm"
+import { Entity, PrimaryColumn, Column, CreateDateColumn } from "typeorm"
 
 @Entity()
 export class upload {
-    @PrimaryColumn()
-    id: string
+    @PrimaryColumn({ name: 'f_id' })
+    fid: string
 
     @Column()
     name: string
@@ -12,8 +12,8 @@ export class upload {
     path: string
 
     @Column()
-    date: Date
-
-    @Column()
     url: string
+
+    @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+    date: Date
 }

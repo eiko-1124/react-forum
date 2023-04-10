@@ -1,9 +1,9 @@
 import { Controller, Get, Post, Body, Response, Query } from '@nestjs/common';
 import jwt from 'jsonwebtoken'
 import { LoginService } from './login.service';
-import { hasUserRes, registerForm, sendVerifyCodeRes, signInForm, signInRes, recoverForm, recoverRes } from './dto/login.dto';
+import { hasUserRes, registerForm, sendVerifyCodeRes, signInForm, signInRes, recoverForm, recoverRes, registerRes } from './dto/login.dto';
 
-@Controller('api/login')
+@Controller('api/local/login')
 export class LoginController {
   constructor(private readonly loginService: LoginService) { }
 
@@ -14,19 +14,19 @@ export class LoginController {
       response.cookie('token', jwt.sign({
         name: res.name,
         id: res.id
-      }, 'lysmane'))
+      }, 'lysmane'), { maxAge: 86400000 })
     }
-    response.send({ res: res.res })
+    response.send(res)
   }
 
   @Post('register')
   async register(@Response() response, @Body() registerForm: registerForm): Promise<void> {
-    const [res, id] = await this.loginService.register(registerForm);
-    if (id.length != 0) {
+    const [res, id]: [registerRes, string] = await this.loginService.register(registerForm);
+    if (res.res == 1) {
       response.cookie('token', jwt.sign({
         name: registerForm.name,
         id: id
-      }, 'lysmane'))
+      }, 'lysmane'), { maxAge: 86400000 })
     }
     response.send(res)
   }
@@ -48,8 +48,8 @@ export class LoginController {
       response.cookie('token', jwt.sign({
         name: res.name,
         id: res.id
-      }, 'lysmane'))
+      }, 'lysmane'), { maxAge: 86400000 })
     }
-    response.send({ res: res.res })
+    response.send(res)
   }
 }

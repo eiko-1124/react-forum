@@ -1,21 +1,15 @@
-import { Entity, PrimaryColumn, Column } from "typeorm"
+import { Entity, PrimaryColumn, Column, CreateDateColumn } from "typeorm"
 
 @Entity()
 export class plate {
-    @PrimaryColumn()
-    id: string
+    @PrimaryColumn({ name: 'p_id' })
+    pid: string
 
     @Column()
     name: string
 
     @Column()
     introduction: string
-
-    @Column()
-    usum: number
-
-    @Column()
-    isum: number
 
     @Column()
     avatar: string
@@ -25,4 +19,10 @@ export class plate {
 
     @Column()
     notice: string
+
+    @Column()
+    owner: string
+
+    @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+    date: Date
 }
