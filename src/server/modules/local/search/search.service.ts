@@ -1,7 +1,7 @@
 import { plate } from '#/entity/plate.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { allRes, owner, plates, simpleSearchRes, target, users } from './dto/search.dto';
 import { user } from '#/entity/user.entity';
 
@@ -55,11 +55,11 @@ export class SearchService {
             res.plates = await this.queryPlates(keyWord, page)
             if (!res.plates) throw new Error('plates error')
             res.plateSum = await this.queryPlateSum(keyWord)
-            if (!res.plateSum) throw new Error('plateSum error')
+            if (res.plateSum === null) throw new Error('plateSum error')
             res.users = await this.queryUser(keyWord, page)
             if (!res.users) throw new Error('users error')
             res.userSum = await this.queryUserSum(keyWord)
-            if (!res.userSum) throw new Error('userSum error')
+            if (res.userSum === null) throw new Error('userSum error')
         } catch (error) {
             console.log(error)
             res.res = -1
@@ -155,9 +155,7 @@ export class SearchService {
 
     async queryUserSum(keyWord: string): Promise<number | null> {
         try {
-            const res: number = await this.userRepository.createQueryBuilder()
-                .where("user.name <> :keyWord AND user.name Like :lKeyWord", { keyWord, lKeyWord: `%${keyWord}%` })
-                .getCount()
+            const res: number = await this.userRepository.count({ where: { name: Like(`%${keyWord}%`) } })
             return res
         } catch (error) {
             console.log(error)

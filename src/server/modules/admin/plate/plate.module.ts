@@ -7,7 +7,7 @@ import { user } from '#/entity/user.entity';
 import { plateSubscribe } from '#/entity/plateSubscribe.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([plate, user, plateSubscribe])],
+  imports: [TypeOrmModule.forFeature([plateSubscribe])],
   controllers: [PlateController],
   providers: [PlateService]
 })

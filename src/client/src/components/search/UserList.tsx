@@ -2,7 +2,16 @@ import React from 'react'
 import style from '@/styles/search/UserList.module.scss'
 import { Avatar, Divider } from 'tdesign-react'
 
-export default function UserList(): JSX.Element {
+type Props = {
+    list: {
+        uid: string,
+        name: string,
+        avatar: string
+    }[],
+    listSum: number
+}
+
+export default function UserList({ list, listSum }: Props): JSX.Element {
     return (
         <div className={style['userList']}>
             <Divider

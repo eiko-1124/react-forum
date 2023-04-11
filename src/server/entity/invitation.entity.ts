@@ -18,7 +18,7 @@ export class invitation {
     text: string
 
     @Column({ default: 0 })
-    top: string
+    top: number
 
     @Column({ default: 0 })
     quality: number

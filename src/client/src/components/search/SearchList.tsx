@@ -7,8 +7,8 @@ type Props = {
     list: {
         pid: string,
         name: string,
-        usum: number,
-        isum: number,
+        sSum: number,
+        iSum: number,
         avatar: string
     }[],
     listSum: number
@@ -33,8 +33,8 @@ export default function SearchList({ list, listSum }: Props): JSX.Element {
                         </Avatar>
                         <div className={style['searchList-info']}>
                             <p className={style['searchList-info-name']}>{site.name}</p>
-                            <p className={style['searchList-info-opacity']}><UserIcon />{site.usum}</p>
-                            <p className={style['searchList-info-opacity']}><RootListIcon />{site.isum}</p>
+                            <p className={style['searchList-info-opacity']}><UserIcon />{site.sSum}</p>
+                            <p className={style['searchList-info-opacity']}><RootListIcon />{site.iSum}</p>
                         </div>
                     </div>
                 })}

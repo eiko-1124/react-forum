@@ -1,10 +1,12 @@
 import useClassify from '@/core/home/useClassify'
 import style from '@/styles/home/Classify.module.scss'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { PageFirstIcon, PageLastIcon, RootListIcon, UserIcon } from 'tdesign-icons-react'
 import { Avatar, Divider, Tag } from 'tdesign-react'
 export default function (): JSX.Element {
 
+    const router = useRouter()
     const { getPlateSum, getPlateList, getPrePage, getNextPage } = useClassify()
     const [listState, setListState] = useState([])
     const [listSumState, setListSumState] = useState(1)
@@ -35,7 +37,7 @@ export default function (): JSX.Element {
         </div>
         <div className={style['classify-content']}>
             {listState.map(plate => {
-                return <div className={style['classify-float']} key={plate.pid}>
+                return <div className={style['classify-float']} key={plate.pid} onClick={() => router.push({ pathname: '/plate/[pid]', query: { pid: plate.pid } })}>
                     <Avatar style={{ cursor: 'pointer' }} shape="round" size='4rem' image={plate.avatar}>
                     </Avatar>
                     <div className={style['classify-info']}>

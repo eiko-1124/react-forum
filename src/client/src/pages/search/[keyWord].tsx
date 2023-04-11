@@ -11,6 +11,7 @@ import UserList from '@/components/search/UserList'
 import CreatePlate from '@/components/search/CreatePlate'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import axios from '@/core/axios'
+import { useRouter } from 'next/router'
 
 type Props = {
     res: number,
@@ -18,19 +19,29 @@ type Props = {
         pid: string,
         name: string,
         introduction: string,
-        usum: number,
-        isum: number,
+        sSum: number,
+        iSum: number,
         avatar: string,
         tag: string
     },
-    plateLists: {
+    owner?: {
+        uid: string,
+        name: string
+    },
+    plates: {
         pid: string,
         name: string,
-        usum: number,
-        isum: number,
+        sSum: number,
+        iSum: number,
         avatar: string
     }[],
-    plateSum: number
+    plateSum: number,
+    users: {
+        uid: string,
+        name: string,
+        avatar: string
+    }[],
+    userSum: number
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -52,7 +63,9 @@ export const getStaticProps: GetStaticProps = async (content) => {
     return { props }
 }
 
-export default function Search({ target, plateLists, plateSum }: Props): JSX.Element {
+export default function Search({ target, owner, plates, plateSum, users, userSum }: Props): JSX.Element {
+
+    const router = useRouter()
 
     const bgStr = 'url(http://localhost:3000/static/background/1.jpg)'
     return (
@@ -65,9 +78,9 @@ export default function Search({ target, plateLists, plateSum }: Props): JSX.Ele
                 </aside>
                 <section className={styles['main-body']}>
                     <section className={styles['main-classify']}>
-                        {target && <Details target={target} title='搜索结果' vSlot={<Button style={{ marginLeft: '0.1rem' }}>进入</Button>}></Details>}
+                        {target && <Details target={target} owner={owner} title='搜索结果' vSlot={<Button style={{ marginLeft: '0.1rem' }} onClick={() => router.push({ pathname: '/plate/[pid]', query: { pid: target.pid } })}>进入</Button>}></Details>}
                         {!target && <CreatePlate></CreatePlate>}
-                        <SearchList list={plateLists} listSum={plateSum}></SearchList>
+                        <SearchList list={plates} listSum={plateSum}></SearchList>
                     </section>
                     <section className={styles['main-section']}>
                         <section className={styles['main-recommend']}>
@@ -75,7 +88,7 @@ export default function Search({ target, plateLists, plateSum }: Props): JSX.Ele
                         </section>
                         <section className={styles['main-ranking']}>
                             <section className={styles['main-ranking-sticky']}>
-                                <UserList></UserList>
+                                <UserList list={users} listSum={userSum}></UserList>
                             </section>
                         </section>
                     </section>
