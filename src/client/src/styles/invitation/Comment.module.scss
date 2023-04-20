@@ -13,14 +13,22 @@
     p {
         transform: scale(0.85);
     }
+
+    .comment-name {
+        cursor: pointer;
+        color: darkcyan;
+        transform: scale(1);
+    }
 }
 
 .comment-content {
     flex: 1;
     padding-right: 0.5rem;
 
-    p {
-        min-height: 6rem;
+    .comment-content-text {
+        padding-right: 1rem;
+        position: relative;
+        min-height: 8rem;
     }
 }
 
@@ -48,17 +56,22 @@
 .comment-options {
     margin: 0.5rem 0rem;
     display: flex;
-    justify-content: flex-end;
     align-items: center;
     height: 1.4rem;
 }
 
 .comment-options-labels {
-    transform: scale(0.85);
+    transform: scale(0.85) translateX(-12.5%);
 
     label {
         margin-left: 0.5rem;
     }
+}
+
+.comment-options-btns {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .comment-options-btn {

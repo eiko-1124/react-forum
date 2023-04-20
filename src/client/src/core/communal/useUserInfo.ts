@@ -1,11 +1,12 @@
 import axios from "../axios";
+import { state } from "../state";
 
 export default function () {
 
     const defaultData = {
         info: {
             name: '用户A',
-            avatar: 'http://localhost:3000/static/avatar/fire-keeper.png',
+            avatar: null,
             publish: 0,
             like: 0,
             reply: 0,
@@ -18,10 +19,18 @@ export default function () {
     }
 
     const getUserInfo = async (setDataState: Function) => {
-        const res = await axios.get('/local/user/getUserInfo', {})
-        if (res['res'] == 1) {
-            setDataState(res['data'])
+        if (!state.info) {
+            try {
+                const res = await axios.get('/local/user/getUserInfo', {})
+                if (res['res'] == 1) {
+                    setDataState(res['data'])
+                    state.info = res['data']
+                }
+            } catch (error) {
+                console.log(error)
+            }
         }
+        else setDataState(state.info)
     }
 
     return {

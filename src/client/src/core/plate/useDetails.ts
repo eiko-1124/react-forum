@@ -13,9 +13,9 @@ export default function (setSubscribe: Function) {
         }
     }
 
-    const setSubscribeStatus = async (pid: string, state: boolean) => {
+    const setSubscribeStatus = async (pid: string, name: string, state: boolean) => {
         try {
-            const res = await axios.get('/local/plate/setSubscribe', { pid }) as { res: number }
+            const res = await axios.post('/admin/plate/setSubscribe', { pid, name }) as { res: number }
             if (res.res === 1) setSubscribe(!state)
         } catch (error) {
             console.log(error)

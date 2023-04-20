@@ -42,7 +42,9 @@
     overflow: hidden;
     border-radius: 0.4rem;
     min-width: 50%;
+    width: 50%;
     justify-content: right;
+    transition-duration: 0.3s;
 
     label {
         font-size: 1rem;

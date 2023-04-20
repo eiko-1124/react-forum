@@ -2,7 +2,7 @@ import React from 'react'
 import { Divider } from 'tdesign-react'
 import style from '@/styles/communal/Notice.module.scss'
 
-export default function Notice(): JSX.Element {
+export default function Notice({ text }: { text?: string }): JSX.Element {
     return (
         <div className={style['notice']}>
             <Divider
@@ -12,7 +12,7 @@ export default function Notice(): JSX.Element {
                 className={style['notice-horizontal']}
             >公告</Divider>
             <div className={style['notice-content']}>
-                愉快地玩耍吧！！
+                {text ? text : '愉快地玩耍吧！！'}
             </div>
         </div>
     )

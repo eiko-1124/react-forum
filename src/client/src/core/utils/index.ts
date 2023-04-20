@@ -24,3 +24,14 @@ export const getCookie = (cname: string): string => {
     }
     return "";
 }
+
+export const getDate = (date: string): string => {
+    const today = new Date(date)
+    const YY = today.getFullYear()
+    const MM = today.getMonth() + 1
+    const DD = today.getDate()
+    const hh = today.getHours()
+    const mm = today.getMinutes()
+    const ss = today.getSeconds()
+    return `${YY}-${MM}-${DD} ${hh}:${mm > 10 ? mm : ('0' + mm)}:${ss > 10 ? ss : ('0' + ss)}`
+}

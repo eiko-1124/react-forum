@@ -7,8 +7,6 @@ export default function Post(): JSX.Element {
 
     const { methods, title, editer } = usePost()
 
-
-
     return (
         <div className={style['post']}>
             <div className={style['post-title']}>
@@ -23,7 +21,10 @@ export default function Post(): JSX.Element {
                 <label>标题</label>
                 <Input placeholder='填写标题' ref={title} maxlength={20}></Input>
             </div>
-            <Editer ref={editer}></Editer>
+            <Editer excludeKeys={[]} styles={{
+                height: '30rem',
+                maxHeight: '90vh'
+            }} ref={editer}></Editer>
             <Button style={{ marginTop: '0.5rem' }} theme="primary" variant="base" onClick={() => methods.submit()}>
                 发布
             </Button>

@@ -46,7 +46,7 @@ export default function Details({ title, vSlot, target, owner }: Props): JSX.Ele
                 <Avatar className={style['details-avatar']} shape="round" size='10rem' image={target.avatar}>
                 </Avatar>
                 <div className={style['details-info']}>
-                    <Button theme={subscribeState ? "success" : "primary"} variant="base" onClick={() => setSubscribeStatus(target.pid, subscribeState)}>
+                    <Button theme={subscribeState ? "success" : "primary"} variant="base" onClick={() => setSubscribeStatus(target.pid, target.name, subscribeState)}>
                         {subscribeState ? '已关注' : '未关注'}
                     </Button>
                     {vSlot}

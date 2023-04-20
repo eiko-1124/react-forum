@@ -15,7 +15,7 @@ export class commit {
     iid: string
 
     @Column()
-    floor: string
+    floor: number
 
     @Column()
     text: string

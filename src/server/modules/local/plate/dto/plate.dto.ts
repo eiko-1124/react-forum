@@ -40,7 +40,7 @@ export interface owner {
 
 export interface noticeRes {
     res: number,
-    text: string
+    notice: string
 }
 
 export interface subscribeRes {

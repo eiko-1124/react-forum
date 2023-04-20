@@ -1,5 +1,4 @@
 import axios from "axios";
-import qs from 'qs'
 import { getCookie } from "../utils";
 import Router from "next/router";
 import jwt from "jsonwebtoken";
@@ -83,7 +82,8 @@ export default {
         return new Promise((resolve, reject) => {
             _axios.post(url, form, {
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': token
                 }
             }).then(res => {
                 resolve(res.data)

@@ -4,24 +4,30 @@ import React, { useState, useEffect, useImperativeHandle, forwardRef } from 'rea
 import { IDomEditor, IEditorConfig, IToolbarConfig } from '@wangeditor/editor'
 import style from '@/styles/plate/Editer.module.scss'
 import dynamic from 'next/dynamic'
+import { getCookie } from '@/core/utils'
 
 const MyEditor = dynamic(() => import('@wangeditor/editor-for-react').then(mod => mod.Editor), { ssr: false })
 const MyToolBar = dynamic(() => import('@wangeditor/editor-for-react').then(mod => mod.Toolbar), { ssr: false })
 
-export default forwardRef((props, ref): JSX.Element => {
+export default forwardRef(({ excludeKeys, styles }: { excludeKeys: string[], styles: { height: string, maxHeight: string } }, ref): JSX.Element => {
     // editor 实例
     const [editor, setEditor] = useState<IDomEditor | null>(null)
 
-    const [html, setHtml] = useState('<p>hello</p>')
+    const [html, setHtml] = useState('')
 
     useImperativeHandle(ref, () => ({
         getValue() {
             return html
+        },
+        clear() {
+            setHtml('')
         }
     }))
 
     // 工具栏配置
-    const toolbarConfig: Partial<IToolbarConfig> = {}
+    const toolbarConfig: Partial<IToolbarConfig> = {
+        excludeKeys
+    }
 
     // 编辑器配置
     const editorConfig: Partial<IEditorConfig> = {
@@ -30,12 +36,18 @@ export default forwardRef((props, ref): JSX.Element => {
         MENU_CONF: {
             uploadImage: {
                 fieldName: 'file',
-                server: '/api/upload/image'
+                server: '/api/admin/upload/image',
+                headers: {
+                    Authorization: getCookie('token')
+                }
             },
             uploadVideo: {
                 fieldName: 'file',
-                server: '/api/upload/video',
+                server: '/api/admin/upload/video',
                 maxFileSize: 30 * 1024 * 1024,
+                headers: {
+                    Authorization: getCookie('token')
+                }
             }
         }
     }
@@ -49,7 +61,8 @@ export default forwardRef((props, ref): JSX.Element => {
     }, [editor])
 
     return (
-        <div className={style['editor']}>
+        <div className={style['editor']}
+            style={{ ...styles }}>
             <MyToolBar
                 editor={editor}
                 defaultConfig={toolbarConfig}

@@ -11,3 +11,8 @@ export interface noteRes {
         note: Date
     }
 }
+
+export interface createNewPlateRes {
+    res: number,
+    id?: string
+}

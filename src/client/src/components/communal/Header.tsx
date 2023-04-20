@@ -22,6 +22,7 @@ export default function (): JSX.Element {
                 onFocus={methods.onFocus}
                 onBlur={methods.disFocus}
                 onChange={() => methods.simpleSearch(keyWord)}
+                onEnter={() => methods.goSearch(keyWord)}
             />
             {state.panelState && <div className={style['header-input-panel']}>
                 <ul>

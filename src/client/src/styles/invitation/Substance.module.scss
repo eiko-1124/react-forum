@@ -3,7 +3,7 @@
     background-color: rgba($color: white, $alpha: 0.98);
 
     h3 {
-        margin: 0.5rem 0rem;
+        margin: 0.5rem 0rem 1rem;
     }
 }
 
@@ -32,22 +32,29 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     flex-shrink: 0;
 
     p {
+        transform: scale(0.85);
         margin-left: 0.2rem;
+    }
+
+    .substance-name {
+        cursor: pointer;
+        color: darkcyan;
+        transform: scale(1);
     }
 }
 
-.substance-options {
-    padding: 0.5rem;
+.substance-options-btns {
     display: flex;
     justify-content: flex-end;
 }
 
 .substance-options-labels {
-    transform: scale(0.85) translateX(5%);
+    margin-top: 0.2rem;
+    text-align: right;
+    transform: scale(0.85) translateX(8.5%);
 }
 
 .substance-options-btn {
@@ -56,10 +63,8 @@
 
 .substance-options {
     margin: 0.5rem 0rem;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    height: 1.4rem;
+    padding: 0.5rem;
+    height: 3.4rem;
 
     label {
         margin-left: 0.5rem;
@@ -67,4 +72,12 @@
         font-size: 1rem;
         transform: scale(0.85);
     }
+}
+
+.substance-more {
+    text-align: center;
+}
+
+.substance-pagination {
+    justify-content: center;
 }

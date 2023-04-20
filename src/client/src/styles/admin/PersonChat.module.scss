@@ -1,0 +1,33 @@
+.personChat {
+    display: flex;
+    height: 40rem;
+}
+
+.personChat-room {
+    display: flex;
+    padding: 0.5rem;
+    flex: 1;
+}
+
+.personChat-menu-item {
+    display: flex;
+    align-items: center;
+}
+
+.personChat-menu-item-info {
+    margin-left: 0.5rem;
+
+    h3 {
+        height: 1.8rem;
+        line-height: 1.8rem;
+    }
+
+    p {
+        height: 1.2rem;
+        line-height: 1.2rem;
+    }
+}
+
+.personChat-win {
+    flex: 1;
+}

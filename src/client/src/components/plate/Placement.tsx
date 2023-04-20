@@ -1,9 +1,14 @@
 import React, { useState } from 'react'
 import { Divider } from 'tdesign-react'
 import style from '@/styles/plate/Placements.module.scss'
-import { ChevronRightIcon, LayersIcon, LinkUnlinkIcon } from 'tdesign-icons-react'
+import { ChevronRightIcon, LinkUnlinkIcon } from 'tdesign-icons-react'
 
-export default function Placement(): JSX.Element {
+type tops = {
+    iid: string,
+    title: string
+}[]
+
+export default function Placement({ tops }: { tops: tops }): JSX.Element {
     const [foldState, setFoldState] = useState(false)
 
     return (
@@ -20,9 +25,10 @@ export default function Placement(): JSX.Element {
                 </button>
             </div>
             <ul className={style['placements-content'] + (foldState ? ` ${style['placements-hidden']}` : '')}>
-                <li><label>[置顶]</label><label><LinkUnlinkIcon size='1.2rem' /></label><p>这是一条置顶消息</p></li>
-                <li><label>[置顶]</label><label><LinkUnlinkIcon size='1.2rem' /></label><p>这是一条置顶消息</p></li>
-                <li><label>[置顶]</label><label><LinkUnlinkIcon size='1.2rem' /></label><p>这是一条置顶消息</p></li>
+                {tops.map(top => {
+                    return <li key={top.iid}><label>[置顶]</label><label><LinkUnlinkIcon size='1.2rem' /></label><p>{top.title}</p></li>
+                })}
+                {tops.length === 0 && <p style={{ margin: '0rem 1rem 0.5rem' }}>~暂无置顶~</p>}
             </ul>
         </div>
     )

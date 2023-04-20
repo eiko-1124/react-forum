@@ -21,9 +21,9 @@ export default function () {
         }
         const pid = Router.query['pid']
         try {
-            const res = await axios.post('/invitation/admin/publish', { pid, title: titleValue, text: editerValue }) as { res: number, id?: number }
+            const res = await axios.post('admin/invitation/publish', { pid, title: titleValue, text: editerValue }) as { res: number, id?: number }
             if (res.res !== 1) throw new Error('post error')
-            Router.push(`/invitation/${res.id}`)
+            Router.push(`/invitation/${pid}/${res.id}`)
         } catch (error) {
             console.log(error)
             MessagePlugin.info('发布失败', 3 * 1000)

@@ -1,6 +1,6 @@
 import React from 'react'
 import style from '@/styles/search/UserList.module.scss'
-import { Avatar, Divider } from 'tdesign-react'
+import { Avatar, Divider, Pagination } from 'tdesign-react'
 
 type Props = {
     list: {
@@ -20,14 +20,19 @@ export default function UserList({ list, listSum }: Props): JSX.Element {
                 layout="horizontal"
                 className={style['userList-horizontal']}
             >用户</Divider>
-            <div>
-                <div className={style['userList-site']}>
-                    <Avatar shape="round" size='4rem'>
-                        W
-                    </Avatar>
-                    <label>hello</label>
-                </div>
-            </div>
+            {
+                list.map(site => {
+                    return <div className={style['userList-site']} key={site.uid}>
+                        <Avatar shape="round" size='4rem' image={site.avatar}>
+                        </Avatar>
+                        <label>{site.name}</label>
+                    </div>
+                })
+            }
+            {list.length < 8 && <p className={style['userList-nomore']}>~没有更多了~</p>}
+            {listSum > 8 && <div className={style['userList-more']}>
+                <Pagination className={style['userList-pagination']} total={listSum} defaultPageSize={8} totalContent={false} showPageSize={false}></Pagination>
+            </div>}
         </div>
     )
 }

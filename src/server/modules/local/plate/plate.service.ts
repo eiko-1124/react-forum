@@ -94,11 +94,11 @@ export class PlateService {
     async getNotice(pid: string): Promise<noticeRes> {
         const res: noticeRes = {
             res: 1,
-            text: ''
+            notice: ''
         }
         try {
             const notice: plate = await this.plateRepository.findOne({ select: { notice: true }, where: { pid } })
-            res.text = notice.notice
+            res.notice = notice.notice
         } catch (error) {
             res.res = -1
             console.log(error)

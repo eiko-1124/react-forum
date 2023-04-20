@@ -19,7 +19,7 @@ export default () => {
                 form.append('file', file[0].raw)
                 form.append('tag', tag)
                 form.append('introduction', introduction)
-                const res = await axios.form('/plate/admin/createNewPlate', form) as { res: number, id?: string }
+                const res = await axios.form('admin/plate/createNewPlate', form) as { res: number, id?: string }
                 if (res.res === 1) Router.push(`/plate/${res.id}`)
                 else MessagePlugin.info('创建出错', 3 * 1000)
             } catch (error) {

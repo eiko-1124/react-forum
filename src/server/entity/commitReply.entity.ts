@@ -17,6 +17,9 @@ export class commitReply {
     @Column({ name: 'u_id_2' })
     uid2: string
 
+    @Column({ name: 'i_id' })
+    iid: string
+
     @Column()
     text: string
 
