@@ -16,5 +16,8 @@ export const lodingStart = (): void => {
 }
 
 export const lodingEnd = (): void => {
-    document.querySelector(`.${style['progressBar']}`).remove()
+    const bars = document.querySelectorAll(`.${style['progressBar']}`)
+    for (let i = 0; i < bars.length; i++) {
+        bars[i].remove()
+    }
 }

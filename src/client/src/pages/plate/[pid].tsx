@@ -99,7 +99,7 @@ export default function index({ target, owner, tops, admins, notice }: Props): J
                     <section className={styles['main-section']}>
                         <section className={styles['main-recommend']}>
                             <Placement tops={tops}></Placement>
-                            <Recommend labels={['精华区', '推荐', '最新']}></Recommend>
+                            {/* <Recommend labels={['精华区', '推荐', '最新']}></Recommend> */}
                         </section>
                         <section className={styles['main-ranking']}>
                             <section className={styles['main-ranking-sticky']}>

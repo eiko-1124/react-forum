@@ -3,10 +3,18 @@ import style from '@/styles/search/InvitationList.module.scss'
 import { Divider } from 'tdesign-react'
 import Card from '../communal/Card'
 
-export default function InvitationList(): JSX.Element {
+type data = {
+  iid: string,
+  uid: string,
+  pid: string,
+  uName: string,
+  pName: string,
+  title: string,
+  text: string,
+  date: Date
+}
 
-  const nums = new Array(10).fill(0)
-  nums.forEach((num, index) => nums[index] = num + index)
+export default function InvitationList({ data, sum }: { data: data[], sum: number }): JSX.Element {
 
   return (
     <div className={style['invitationList']}>
@@ -18,7 +26,8 @@ export default function InvitationList(): JSX.Element {
           className={style['invitationList-horizontal']}
         >帖子结果</Divider>
       </div>
-      {nums.map(key => <Card key={key}></Card>)}
+      {data.map(site => <Card data={site} key={site.iid}></Card>)}
+      {data.length < 12 && <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '6rem', color: '#606266' }}>~没有更多了~</p>}
     </div>
   )
 }

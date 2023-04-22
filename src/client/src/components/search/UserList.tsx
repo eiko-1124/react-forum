@@ -12,6 +12,7 @@ type Props = {
 }
 
 export default function UserList({ list, listSum }: Props): JSX.Element {
+    console.log(list, listSum)
     return (
         <div className={style['userList']}>
             <Divider

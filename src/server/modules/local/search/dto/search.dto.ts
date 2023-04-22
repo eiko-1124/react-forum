@@ -18,7 +18,9 @@ export interface allRes {
     plates?: plates[],
     plateSum?: number,
     users?: users[],
-    userSum?: number
+    userSum?: number,
+    invitations?: invitations[],
+    invitationSum?: number
 }
 
 export interface target {
@@ -49,4 +51,15 @@ export interface users {
     uid: string,
     name: string,
     avatar: string
+}
+
+export interface invitations {
+    iid: string,
+    uid: string,
+    pid: string,
+    uName: string,
+    pName: string,
+    title: string,
+    text: string,
+    date: Date
 }

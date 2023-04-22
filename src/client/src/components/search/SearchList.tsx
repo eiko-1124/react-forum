@@ -15,6 +15,7 @@ type Props = {
 }
 
 export default function SearchList({ list, listSum }: Props): JSX.Element {
+    console.log(list, listSum)
 
     return (
         <div className={style['searchList']}>
@@ -43,7 +44,7 @@ export default function SearchList({ list, listSum }: Props): JSX.Element {
                 <Pagination className={style['searchList-pagination']} total={listSum} defaultPageSize={12} totalContent={false} showPageSize={false}></Pagination>
             </div>}
             {listSum <= 6 && <div className={style['searchList-end']}>
-                没有更多了
+                ~没有更多了~
             </div>}
         </div>
     )

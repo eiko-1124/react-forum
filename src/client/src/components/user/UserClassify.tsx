@@ -24,7 +24,7 @@ export default function UserClassify({ plates }: Props): JSX.Element {
         const token = getCookie('token')
         let id: string = 'undefined'
         if (token) id = jwt.decode(token)['id']
-        router.push(`/admin/1/${id}`)
+        router.push(`/admin/3/${id}`)
     }
 
     return (

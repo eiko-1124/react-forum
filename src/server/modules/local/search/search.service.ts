@@ -2,8 +2,9 @@ import { plate } from '#/entity/plate.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
-import { allRes, owner, plates, simpleSearchRes, target, users } from './dto/search.dto';
+import { allRes, invitations, owner, plates, simpleSearchRes, target, users } from './dto/search.dto';
 import { user } from '#/entity/user.entity';
+import { invitation } from '#/entity/invitation.entity';
 
 @Injectable()
 export class SearchService {
@@ -11,7 +12,9 @@ export class SearchService {
         @InjectRepository(plate)
         private plateRepository: Repository<plate>,
         @InjectRepository(user)
-        private userRepository: Repository<user>
+        private userRepository: Repository<user>,
+        @InjectRepository(invitation)
+        private invitationRepository: Repository<invitation>
     ) { }
 
     async simpleSearch(keyWord: string): Promise<simpleSearchRes> {
@@ -60,6 +63,10 @@ export class SearchService {
             if (!res.users) throw new Error('users error')
             res.userSum = await this.queryUserSum(keyWord)
             if (res.userSum === null) throw new Error('userSum error')
+            res.invitations = await this.queryInvitation(keyWord, page)
+            if (!res.invitations) throw new Error('invitations error')
+            res.invitationSum = await this.queryInvitationSum(keyWord)
+            if (res.invitationSum === null) throw new Error('userSum error')
         } catch (error) {
             console.log(error)
             res.res = -1
@@ -81,7 +88,7 @@ export class SearchService {
                 .addSelect('COUNT(DISTINCT plate_subscribe.u_id)', 'sSum')
                 .addSelect('COUNT(DISTINCT invitation.i_id)', 'iSum')
                 .groupBy('plate.p_id')
-                .where("plate.name <> :keyWord AND plate.name Like :lKeyWord", { keyWord, lKeyWord: `%${keyWord}%` })
+                .where("plate.name = :keyWord", { keyWord })
                 .getRawOne()
             return res
         } catch (error) {
@@ -141,7 +148,7 @@ export class SearchService {
                 .select('user.u_id', 'uid')
                 .addSelect('user.name', 'name')
                 .addSelect('user.avatar', 'avatar')
-                .where("user.name <> :keyWord AND user.name Like :lKeyWord", { keyWord, lKeyWord: `%${keyWord}%` })
+                .where("user.name Like :lKeyWord", { lKeyWord: `%${keyWord}%` })
                 .orderBy('user.date', 'ASC')
                 .limit(8)
                 .offset(8 * page)
@@ -156,6 +163,40 @@ export class SearchService {
     async queryUserSum(keyWord: string): Promise<number | null> {
         try {
             const res: number = await this.userRepository.count({ where: { name: Like(`%${keyWord}%`) } })
+            return res
+        } catch (error) {
+            console.log(error)
+            return null
+        }
+    }
+    async queryInvitation(keyWord: string, page: number): Promise<invitations[] | null> {
+        try {
+            const res: invitations[] = await this.invitationRepository.createQueryBuilder()
+                .leftJoinAndSelect('plate', 'plate', 'invitation.plate=plate.p_id')
+                .leftJoinAndSelect('user', 'user', 'user.u_id=invitation.owner')
+                .select('invitation.i_id', 'iid')
+                .addSelect('invitation.title', 'title')
+                .addSelect('invitation.text', 'text')
+                .addSelect('invitation.date', 'date')
+                .addSelect('plate.p_id', 'pid')
+                .addSelect('plate.name', 'pName')
+                .addSelect('user.u_id', 'uid')
+                .addSelect('user.name', 'uName')
+                .where("invitation.title Like :lKeyWord", { lKeyWord: `%${keyWord}%` })
+                .orderBy('invitation.date')
+                .take(12)
+                .offset(12 * page)
+                .getRawMany()
+            return res
+        } catch (error) {
+            console.log(error)
+            return null
+        }
+    }
+
+    async queryInvitationSum(keyWord: string): Promise<number | null> {
+        try {
+            const res: number = await this.invitationRepository.count({ where: { title: Like(`%${keyWord}%`) } })
             return res
         } catch (error) {
             console.log(error)

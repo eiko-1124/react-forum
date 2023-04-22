@@ -9,11 +9,11 @@ import { getCookie } from '@/core/utils'
 const MyEditor = dynamic(() => import('@wangeditor/editor-for-react').then(mod => mod.Editor), { ssr: false })
 const MyToolBar = dynamic(() => import('@wangeditor/editor-for-react').then(mod => mod.Toolbar), { ssr: false })
 
-export default forwardRef(({ excludeKeys, styles }: { excludeKeys: string[], styles: { height: string, maxHeight: string } }, ref): JSX.Element => {
+export default forwardRef(({ excludeKeys, styles, defaultText }: { excludeKeys: string[], styles: { height: string, maxHeight: string }, defaultText?: string }, ref): JSX.Element => {
     // editor 实例
     const [editor, setEditor] = useState<IDomEditor | null>(null)
 
-    const [html, setHtml] = useState('')
+    const [html, setHtml] = useState(defaultText ? defaultText : '')
 
     useImperativeHandle(ref, () => ({
         getValue() {
@@ -21,6 +21,9 @@ export default forwardRef(({ excludeKeys, styles }: { excludeKeys: string[], sty
         },
         clear() {
             setHtml('')
+        },
+        setText(text: string) {
+            setHtml(text)
         }
     }))
 

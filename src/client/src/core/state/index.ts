@@ -1,5 +1,9 @@
 const stateMethod = {
-    addCommit: null
+    addCommit: null,
+    setInfoName: null,
+    setInfoAvatar: null,
+    setPublish: null,
+    setInfo: null
 }
 
 const state = {

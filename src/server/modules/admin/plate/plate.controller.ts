@@ -1,6 +1,6 @@
-import { Body, Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { PlateService } from './plate.service';
-import { createNewPlateRes, noteRes, subscribeRes } from './dto/plate.dto';
+import { PreferenceRes, adminPlateRes, createNewPlateRes, noteRes, subscribeRes, unRes } from './dto/plate.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('api/admin/plate')
@@ -27,5 +27,45 @@ export class PlateController {
     @Body('introduction') introduction: string
   ): Promise<createNewPlateRes> {
     return this.plateService.createNewPlate(file, uid, name, tag, introduction)
+  }
+
+  @Get('getPreference')
+  getPreference(@Query('id') uid: string): Promise<PreferenceRes> {
+    return this.plateService.getPreference(uid)
+  }
+
+  @Get('getAdminPlates')
+  getAdminPlates(@Query('id') uid: string): Promise<adminPlateRes> {
+    return this.plateService.getAdminPlates(uid)
+  }
+
+  @Get('getAdminPlatesA')
+  getAdminPlatesA(@Query('id') uid: string): Promise<adminPlateRes> {
+    return this.plateService.getAdminPlatesA(uid)
+  }
+
+  @Get('getAdminPlatesO')
+  getAdminPlatesO(@Query('id') uid: string) {
+    return this.plateService.getAdminPlatesO(uid)
+  }
+
+  @Post('unAdmin1')
+  unAdim1(@Body('uid') uid: string, @Body('pid') pid: string): Promise<unRes> {
+    return this.plateService.unAdmin(uid, pid)
+  }
+
+  @Post('unAdmin2')
+  unAdim2(@Body('uid') uid: string, @Body('pid') pid: string): Promise<unRes> {
+    return this.plateService.unAdmin(uid, pid)
+  }
+
+  @Post('unSubscribe')
+  unSubscribe(@Body('uid') uid: string, @Body('pid') pid: string): Promise<unRes> {
+    return this.plateService.unSubscribe(uid, pid)
+  }
+
+  @Post('unOwner')
+  unOwner(@Body('uid') uid: string, @Body('pid') pid: string): Promise<unRes> {
+    return this.plateService.unOwner(uid, pid)
   }
 }

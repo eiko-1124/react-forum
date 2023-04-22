@@ -41,7 +41,18 @@ type Props = {
         name: string,
         avatar: string
     }[],
-    userSum: number
+    userSum: number,
+    invitations: {
+        iid: string,
+        uid: string,
+        pid: string,
+        uName: string,
+        pName: string,
+        title: string,
+        text: string,
+        date: Date
+    }[]
+    invitationSum: number
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -63,7 +74,7 @@ export const getStaticProps: GetStaticProps = async (content) => {
     return { props }
 }
 
-export default function Search({ target, owner, plates, plateSum, users, userSum }: Props): JSX.Element {
+export default function Search({ target, owner, plates, plateSum, users, userSum, invitations, invitationSum }: Props): JSX.Element {
 
     const router = useRouter()
 
@@ -84,7 +95,7 @@ export default function Search({ target, owner, plates, plateSum, users, userSum
                     </section>
                     <section className={styles['main-section']}>
                         <section className={styles['main-recommend']}>
-                            <InvitationList></InvitationList>
+                            <InvitationList data={invitations} sum={invitationSum}></InvitationList>
                         </section>
                         <section className={styles['main-ranking']}>
                             <section className={styles['main-ranking-sticky']}>

@@ -6,10 +6,15 @@ import Ranking from '@/components/communal/Ranking'
 import Recommend from '@/components/communal/Recommend'
 import User from '@/components/communal/User'
 import styles from '@/styles/communal/Main.module.scss'
+import useHome from '@/core/home/useHome'
 
 export default function Home() {
 
     const bgStr = 'url(http://localhost:3000/static/background/1.jpg)'
+
+    const {
+        selectState, setSelectState, listState, sumState, setPageState
+    } = useHome()
 
     return (
         <div className={styles.main} style={{ backgroundImage: bgStr }}>
@@ -25,7 +30,7 @@ export default function Home() {
                     </section>
                     <section className={styles['main-section']}>
                         <section className={styles['main-recommend']}>
-                            <Recommend labels={['推荐', '关注']}></Recommend>
+                            <Recommend sum={sumState} setSelect={setSelectState} list={listState} labels={['推荐', '关注']} setPage={setPageState}></Recommend>
                         </section>
                         <section className={styles['main-ranking']}>
                             <section className={styles['main-ranking-sticky']}>

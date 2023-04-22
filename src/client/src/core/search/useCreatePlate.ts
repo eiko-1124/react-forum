@@ -2,6 +2,7 @@ import { useRef, useState } from "react"
 import { MessagePlugin } from "tdesign-react"
 import axios from "../axios"
 import Router from "next/router"
+import { stateMethod } from "../state"
 
 export default () => {
     const uploadRef = useRef()
@@ -20,7 +21,10 @@ export default () => {
                 form.append('tag', tag)
                 form.append('introduction', introduction)
                 const res = await axios.form('admin/plate/createNewPlate', form) as { res: number, id?: string }
-                if (res.res === 1) Router.push(`/plate/${res.id}`)
+                if (res.res === 1) {
+                    Router.push(`/plate/${res.id}`)
+                    stateMethod.setInfo()
+                }
                 else MessagePlugin.info('创建出错', 3 * 1000)
             } catch (error) {
                 console.log(error)

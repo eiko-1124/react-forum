@@ -4,6 +4,7 @@ import { NextModule } from './next/next.module';
 import { AuthMiddleware } from '#/middleware/Auth.middleware';
 import entity from './entity';
 import { ApiModule } from './modules/api.module';
+import { AppGateway } from './WebSocket/app.gateway';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ApiModule } from './modules/api.module';
     ApiModule,
     NextModule
   ],
+  providers: [AppGateway]
 })
 export class AppModule implements NextModule {
   configure(consumer: MiddlewareConsumer) {

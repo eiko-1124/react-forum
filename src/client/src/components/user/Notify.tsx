@@ -20,24 +20,20 @@ export default function Notify(): JSX.Element {
     return (
         <FoldCard title='消息提醒' col={1}>
             <div className={style['notify']}>
-                <Badge count={2}>
-                    <div className={style['notify-btn']} onClick={() => goAdmin(1)}>&#xe600;</div>
-                    <p>点赞</p>
-                </Badge>
                 <Badge count={0}>
-                    <div className={style['notify-btn']} onClick={() => goAdmin(2)}>&#xe7ac;</div>
-                    <p>回复</p>
+                    <div className={style['notify-btn']} onClick={() => goAdmin(6)}>&#xe7ac;</div>
+                    <p>帖子</p>
                 </Badge>
                 <Badge count={2}>
-                    <div className={style['notify-btn']} onClick={() => goAdmin(3)}>&#xe788;</div>
+                    <div className={style['notify-btn']} onClick={() => goAdmin(8)}>&#xe788;</div>
                     <p>私信</p>
                 </Badge>
                 <Badge count={2}>
-                    <div className={style['notify-btn']} onClick={() => goAdmin(4)}>&#xe634;</div>
+                    <div className={style['notify-btn']} onClick={() => goAdmin(6)}>&#xe634;</div>
                     <p>粉丝</p>
                 </Badge>
                 <Badge count={2}>
-                    <div className={style['notify-btn']} onClick={() => goAdmin(5)}>&#xe67c;</div>
+                    <div className={style['notify-btn']} onClick={() => goAdmin(6)}>&#xe67c;</div>
                     <p>系统</p>
                 </Badge>
             </div>

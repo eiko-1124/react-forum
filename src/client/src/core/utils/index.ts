@@ -35,3 +35,9 @@ export const getDate = (date: string): string => {
     const ss = today.getSeconds()
     return `${YY}-${MM}-${DD} ${hh}:${mm > 10 ? mm : ('0' + mm)}:${ss > 10 ? ss : ('0' + ss)}`
 }
+
+export const formatText = (text: string): string => {
+    text = text.replace(/\<img.*?\>/g, '[图片]')
+    console.log(text)
+    return text
+}

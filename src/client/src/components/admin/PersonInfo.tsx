@@ -1,23 +1,35 @@
 import React, { useState } from 'react'
-import { Avatar, Button, Input } from 'tdesign-react'
+import { Avatar, Button, Input, Tag, Upload } from 'tdesign-react'
 import style from '@/styles/admin/PersonInfo.module.scss'
+import usePersonInfo from '@/core/admin/usePersonInfo'
 
 export default function PersonInfo(): JSX.Element {
-    const [nameState, setNameState] = useState('lysmane')
+    const { infoState, setInfoState, uploadRef, file, setFile, setName, setAvatar } = usePersonInfo()
     return (
         <div className={style['personInfo']}>
             <div>
                 <div className={style['personInfo-name']}>
                     <label>用户名：</label>
-                    <Input value={nameState} onChange={val => setNameState(val)}></Input>
-                    <Button variant="outline" theme="success" ghost style={{ margin: '0rem 0.5rem' }}>
+                    <Input value={infoState.name} onChange={val => setInfoState({ ...infoState, name: val })}></Input>
+                    <Button variant="outline" theme="success" ghost style={{ margin: '0rem 0.5rem' }} onClick={setName}>
                         修改
                     </Button>
                 </div>
                 <div className={style['personInfo-avatar']}>
                     <label>头像：</label>
-                    <Avatar shape="round" size='8rem'></Avatar>
-                    <Button variant="outline" theme="success" ghost style={{ margin: '0rem 0.5rem' }}>
+                    <Avatar shape="round" size='7rem' image={infoState.avatar}></Avatar>
+                    <Upload
+                        ref={uploadRef}
+                        files={file}
+                        onChange={setFile}
+                        theme={"image"}
+                        accept="image/*"
+                        autoUpload={false}
+                        style={{
+                            marginLeft: '0.5rem'
+                        }}
+                    />
+                    <Button variant="outline" theme="success" ghost style={{ margin: '0rem 0.5rem' }} onClick={setAvatar}>
                         修改
                     </Button>
                 </div>
@@ -25,25 +37,37 @@ export default function PersonInfo(): JSX.Element {
                     <label>统计：</label>
                     <ul>
                         <li>
-                            发布帖子：999
+                            <Tag theme="success" variant="dark">
+                                发布帖子：{infoState.publish}
+                            </Tag>
                         </li>
                         <li>
-                            收到回复：999
+                            <Tag theme="success" variant="dark">
+                                收到回复：{infoState.reply}
+                            </Tag>
                         </li>
                         <li>
-                            收到点赞：999
+                            <Tag theme="success" variant="dark">
+                                收到点赞：{infoState.like}
+                            </Tag>
                         </li>
                         <li>
-                            关注者：999
+                            <Tag theme="success" variant="dark">
+                                关注者：{infoState.subscribe}
+                            </Tag>
                         </li>
                         <li>
-                            粉丝：999
+                            <Tag theme="success" variant="dark">
+                                粉丝：{infoState.fans}
+                            </Tag>
                         </li>
                     </ul>
                 </div>
             </div>
             <div className={style['personInfo-preference']}>
                 <label>偏好：</label>
+                <div className='personInfo-chart' style={{ height: '20rem', width: '100%' }}>
+                </div>
             </div>
             <div></div>
         </div>

@@ -3,29 +3,29 @@ import { Button, List, Pagination, Space } from 'tdesign-react';
 import ListItem from 'tdesign-react/es/list/ListItem';
 import ListItemMeta from 'tdesign-react/es/list/ListItemMeta';
 import style from '@/styles/admin/PersonInvitation.module.scss'
+import usePersonCollect from '@/core/admin/usePersonCollect';
 
 export default function PersonCollect() {
-    const listData = [
-        { id: 1, content: '列表内容列表内容列表内容' },
-        { id: 2, content: '列表内容列表内容列表内容' },
-        { id: 3, content: '列表内容列表内容列表内容' },
-        { id: 4, content: '列表内容列表内容列表内容' },
-    ];
+    const { listState, listSumState, pageChange, deleteInvitation, goInvitation } = usePersonCollect()
+
     return (
         <div className={style['PersonInvitation']}>
-            <List className={style['PersonInvitation-list']}>
-                {listData.map((item) => (
-                    <ListItem key={item.id}>
-                        <ListItemMeta title="列表主内容" description={item.content} />
+            {listState.length > 0 && <List className={style['PersonInvitation-list']}>
+                {listState.map((item) => (
+                    <ListItem key={item.iid}>
+                        <ListItemMeta title={<div style={{ cursor: 'pointer' }} onClick={() => goInvitation(item.plate, item.iid)}>{item.title}</div>} description={item.text} />
                         <Space>
-                            <Button theme="danger" variant="base">删除</Button>
+                            <Button theme="danger" variant="base" onClick={() => { deleteInvitation(item.iid) }}>删除</Button>
                         </Space>
                     </ListItem>
                 ))}
-            </List>
-            <div className={style['PersonInvitation-more']}>
-                <Pagination className={style['PersonInvitation-pagination']} total={100} defaultPageSize={5} totalContent={false} showPageSize={false}></Pagination>
-            </div>
-        </div>
+            </List>}
+            {
+                listState.length === 0 && <p style={{ display: 'flex', height: '20rem', alignItems: 'center', justifyContent: 'center' }}>~~用户还没有发布内容~~</p>
+            }
+            {listSumState > 0 && <div className={style['PersonInvitation-more']}>
+                <Pagination className={style['PersonInvitation-pagination']} total={listSumState} defaultPageSize={6} totalContent={false} showPageSize={false} onChange={val => pageChange(val)}></Pagination>
+            </div>}
+        </div >
     )
 }

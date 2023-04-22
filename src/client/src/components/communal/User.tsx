@@ -38,10 +38,11 @@ export default function (): JSX.Element {
             <div className={style['user-double-dashed']}></div>
             <UserClassify plates={dataState.plates}></UserClassify>
             <Notify></Notify>
-            <Consumer type={3} friends={dataState.subscribers} title='我关注的'></Consumer>
-            <Consumer type={4} friends={dataState.fans} title='关注我的'></Consumer>
-            <div className={style['user-btn']} onClick={() => goAdmin(1)}><h4>帖子管理</h4><ChevronRightIcon className={style['user-arrow']} size='large' /></div>
-            <div className={style['user-btn']} onClick={() => goAdmin(2)}><h4>收藏/历史</h4><ChevronRightIcon className={style['user-arrow']} size='large' /></div>
+            <Consumer type={7} friends={dataState.subscribers} title='我关注的'></Consumer>
+            <Consumer type={7} friends={dataState.fans} title='关注我的'></Consumer>
+            <div className={style['user-btn']} onClick={() => goAdmin(2)}><h4>帖子管理</h4><ChevronRightIcon className={style['user-arrow']} size='large' /></div>
+            <div className={style['user-btn']} onClick={() => goAdmin(5)}><h4>收藏管理</h4><ChevronRightIcon className={style['user-arrow']} size='large' /></div>
+            <div className={style['user-btn']} onClick={() => goAdmin(4)}><h4>历史管理</h4><ChevronRightIcon className={style['user-arrow']} size='large' /></div>
         </div>
     )
 }

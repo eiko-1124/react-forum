@@ -69,3 +69,15 @@ export const ranking = (arr: rankingSite[]) => {
     }
     return res
 }
+
+export const formatText = (text: string): string => {
+    text = text.replace(/\<img.*?\>/g, '[图片]')
+    text = text.replace(/\<a.*?\>/g, '[链接]')
+    text = text.replace(/\<video.*?\>/g, '[视频]')
+    text = text.replace(/\<code.*?\>/g, '[代码]')
+    text = text.replace(/\<table.*?\>/g, '[表格]')
+    const arr: string[] = text.match(/(?<=>)(.*?)(?=<)/g)
+    const str: string = arr.join(' ')
+    if (str.length < 50) return str + '...'
+    else return str.substring(0, 50) + '...'
+}

@@ -1,5 +1,5 @@
 import axios from "../axios";
-import { state } from "../state";
+import { state, stateMethod } from "../state";
 
 export default function () {
 
@@ -31,6 +31,46 @@ export default function () {
             }
         }
         else setDataState(state.info)
+        stateMethod.setInfoName = (name: string) => {
+            setDataState({
+                ...state.info,
+                info: {
+                    ...state.info['info'],
+                    name
+                },
+            })
+        }
+        stateMethod.setInfoAvatar = (avatar: string) => {
+            setDataState({
+                ...state.info,
+                info: {
+                    ...state.info['info'],
+                    avatar
+                },
+            })
+        }
+
+        stateMethod.setPublish = (publish: number) => {
+            setDataState({
+                ...state.info,
+                info: {
+                    ...state.info['info'],
+                    publish
+                },
+            })
+        }
+
+        stateMethod.setInfo = async () => {
+            try {
+                const res = await axios.get('/local/user/getUserInfo', {})
+                if (res['res'] == 1) {
+                    setDataState(res['data'])
+                    state.info = res['data']
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
     }
 
     return {

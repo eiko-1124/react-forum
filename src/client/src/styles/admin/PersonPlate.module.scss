@@ -4,6 +4,25 @@
 }
 
 .personPlate-plate {
-    padding: 0.2rem;
+    padding: 0.4rem;
+    margin: 0.2rem;
     display: flex;
+    background-color: #d9e1ff;
+    border-radius: 0.2rem;
+}
+
+.personPlate-cancal {
+    height: 100%;
+    width: 1.5rem;
+
+    label {
+        writing-mode: vertical-rl;
+        letter-spacing: 0.1rem;
+    }
+}
+
+.personPlate-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }

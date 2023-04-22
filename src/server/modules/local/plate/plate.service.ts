@@ -140,7 +140,8 @@ export class PlateService {
             }
         }
         try {
-            res.ranking = await this.plateSubscribeRepository.findOne({ select: { exp: true, level: true, note: true }, where: { uid, pid } })
+            const rRes = await this.plateSubscribeRepository.findOne({ select: { exp: true, level: true, note: true }, where: { uid, pid } })
+            if (rRes) res.ranking = rRes
             res.ranking.maxExp = 50 * Math.pow(2, res.ranking.level - 1)
         } catch (error) {
             console.log(error)
