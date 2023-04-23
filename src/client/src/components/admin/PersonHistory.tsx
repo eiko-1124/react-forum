@@ -21,7 +21,7 @@ export default function PersonHistory(): JSX.Element {
                 ))}
             </List>}
             {
-                listState.length === 0 && <p style={{ display: 'flex', height: '20rem', alignItems: 'center', justifyContent: 'center' }}>~~用户还没有发布内容~~</p>
+                listState.length === 0 && <p style={{ display: 'flex', height: '20rem', alignItems: 'center', justifyContent: 'center' }}>~~用户没有浏览历史~~</p>
             }
             {listSumState > 0 && <div className={style['PersonInvitation-more']}>
                 <Pagination className={style['PersonInvitation-pagination']} total={listSumState} defaultPageSize={6} totalContent={false} showPageSize={false} onChange={val => pageChange(val)}></Pagination>

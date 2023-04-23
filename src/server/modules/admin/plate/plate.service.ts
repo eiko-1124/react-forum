@@ -2,13 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { InsertResult, Repository } from 'typeorm';
 import { plateSubscribe } from '#/entity/plateSubscribe.entity';
-import { PreferenceRes, adminPlate, adminPlateORes, adminPlateRes, createNewPlateRes, noteRes, preference, subscribeRes, unRes } from './dto/plate.dto';
+import { PreferenceRes, adminPlate, adminPlateORes, adminPlateRes, createNewPlateRes, isAdminRes, noteRes, preference, setNoticeRes, subscribeRes, unRes } from './dto/plate.dto';
 import { plate } from '#/entity/plate.entity';
 import { createId } from '#/utils';
 import { join } from 'path';
 import { createWriteStream } from 'fs';
 import { upload } from '#/entity/upload.entity';
 import { invitationHistory } from '#/entity/invitationHistory.entity';
+import ac from '#/ac';
 
 @Injectable()
 export class PlateService {
@@ -244,6 +245,35 @@ export class PlateService {
         try {
             const pRes = await this.plateRepository.findOne({ where: { pid } })
             if (pRes) this.plateRepository.save({ ...pRes, owner: uid })
+        } catch (error) {
+            console.log(error)
+            res.res = -1
+        }
+        return res
+    }
+
+    async setNotice(pid: string, notice: string): Promise<setNoticeRes> {
+        const res: setNoticeRes = {
+            res: 1
+        }
+        try {
+            notice = ac.replace(notice)
+            const pRes = await this.plateRepository.findOne({ where: { pid } })
+            await this.plateRepository.save({ ...pRes, notice })
+        } catch (error) {
+            console.log(error)
+            res.res = -1
+        }
+        return res
+    }
+
+    async isAdmin(uid: string, pid: string): Promise<isAdminRes> {
+        const res: isAdminRes = {
+            res: 1
+        }
+        try {
+            const iRes = await this.plateSubscribeRepository.count({ where: { uid, pid, admin: 1 } })
+            if (iRes == 0) res.res = 2
         } catch (error) {
             console.log(error)
             res.res = -1

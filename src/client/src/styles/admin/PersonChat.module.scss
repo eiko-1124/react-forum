@@ -1,6 +1,6 @@
 .personChat {
     display: flex;
-    height: 40rem;
+    height: 42.5rem;
 }
 
 .personChat-room {
@@ -30,4 +30,56 @@
 
 .personChat-win {
     flex: 1;
+}
+
+.personChat-win-container {
+    margin-bottom: 0.5rem;
+    text-align: center;
+    height: 23.5rem;
+    border: 1px solid #e8e8e8;
+    overflow: scroll;
+    scroll-behavior: smooth;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.personChat-message-left,
+.personChat-message-right {
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+
+    .personChat-message-text {
+        margin: 0.5rem 0rem;
+        padding: 0.5rem;
+        background-color: #d9e1ff;
+    }
+
+    .personChat-message {
+        display: flex;
+        cursor: pointer;
+        align-items: center;
+
+        h3 {
+            margin: 0rem 0.5rem;
+            color: darkcyan;
+        }
+    }
+
+    .personChat-message-text {
+        text-align: left;
+        width: 60%;
+        min-height: 4rem;
+    }
+}
+
+.personChat-message-right {
+
+    align-items: flex-end;
+
+    .personChat-message {
+        flex-direction: row-reverse;
+    }
 }

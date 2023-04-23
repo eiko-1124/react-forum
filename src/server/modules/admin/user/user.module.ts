@@ -10,9 +10,12 @@ import { commit } from '#/entity/commit.entity';
 import { commitReply } from '#/entity/commitReply.entity';
 import { userFans } from '#/entity/userFans.entity';
 import { upload } from '#/entity/upload.entity';
+import { plate } from '#/entity/plate.entity';
+import { userBlacklist } from '#/entity/userBlacklist.entity';
+import { plateBlacklist } from '#/entity/plateBlacklist.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([user, invitation, commitLike, invitationLike, commit, commitReply, userFans, upload])],
+  imports: [TypeOrmModule.forFeature([user, invitation, commitLike, invitationLike, commit, commitReply, userFans, upload, plate, userBlacklist, plateBlacklist])],
   controllers: [UserController],
   providers: [UserService]
 })

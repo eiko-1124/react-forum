@@ -15,4 +15,9 @@ export class SearchController {
   getAll(@Query('keyWord') keyWord: string, @Query('page') page: number): Promise<allRes> {
     return this.searchService.getAll(keyWord, page)
   }
+
+  @Get('station')
+  station(@Query('keyWord') keyWord: string, @Query('pid') pid: string, @Query('page') page: number) {
+    return this.searchService.station(keyWord, pid, page)
+  }
 }

@@ -63,3 +63,16 @@ export interface invitations {
     text: string,
     date: Date
 }
+
+export interface stationRes {
+    res: number,
+    sSum: number,
+    stations: station[]
+}
+
+export interface station {
+    iid: string,
+    title: string,
+    plate: string
+    date: Date
+}

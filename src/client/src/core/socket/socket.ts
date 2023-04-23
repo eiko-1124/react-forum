@@ -6,8 +6,8 @@ socket.on('connect', () => {
     console.log('Connected to server');
 });
 
-socket.on('message', (data) => {
-    console.log(data, '?');
-});
+socket.on('newMessage', () => {
+    console.log('白痴')
+})
 
 export default socket

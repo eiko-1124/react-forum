@@ -53,8 +53,11 @@ export default function () {
                     replys: res.replys
                 })
                 MessagePlugin.info('发送成功', 3 * 1000)
+                stateMethod.setInfo()
                 editer.current.clear()
             }
+            else if (res.res == 12) MessagePlugin.info('您在板块的黑名单内', 3 * 1000)
+            else if (res.res == 13) MessagePlugin.info('您在用户的黑名单内', 3 * 1000)
             else MessagePlugin.info('发送失败', 3 * 1000)
         }
     }

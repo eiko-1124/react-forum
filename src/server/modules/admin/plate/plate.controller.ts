@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { PlateService } from './plate.service';
-import { PreferenceRes, adminPlateRes, createNewPlateRes, noteRes, subscribeRes, unRes } from './dto/plate.dto';
+import { PreferenceRes, adminPlateRes, createNewPlateRes, isAdminRes, noteRes, setNoticeRes, subscribeRes, unRes } from './dto/plate.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('api/admin/plate')
@@ -67,5 +67,15 @@ export class PlateController {
   @Post('unOwner')
   unOwner(@Body('uid') uid: string, @Body('pid') pid: string): Promise<unRes> {
     return this.plateService.unOwner(uid, pid)
+  }
+
+  @Get('isAdmin')
+  isAdmin(@Query('id') uid: string, @Query('pid') pid: string): Promise<isAdminRes> {
+    return this.plateService.isAdmin(uid, pid)
+  }
+
+  @Post('setNotice')
+  setNotice(@Body('pid') pid: string, @Body('notice') notice: string): Promise<setNoticeRes> {
+    return this.plateService.setNotice(pid, notice)
   }
 }

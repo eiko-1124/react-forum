@@ -51,6 +51,7 @@ export const registerForm = (setRegisterState: React.Dispatch<React.SetStateActi
                 email: emailValue,
                 pswd: pswdValue
             })
+            console.log(res)
             if (res === -1) {
                 netWorkError(setTipsState)
             } else if (res === 1) {

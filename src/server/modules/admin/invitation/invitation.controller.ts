@@ -16,7 +16,7 @@ export class InvitationController {
     return this.invitationService.setLike(uid, iid, flag, owner)
   }
 
-  @Post('setLike')
+  @Post('setCollect')
   setCollect(@Body('id') uid: string, @Body('iid') iid: string, @Body('flag') flag: boolean, @Body('floor') floor: number): Promise<collectRes> {
     return this.invitationService.setCollect(uid, iid, flag, floor)
   }
@@ -64,5 +64,15 @@ export class InvitationController {
   @Get('getSubscribeInvitation')
   getSubscribeInvitation(@Query('id') uid: string, @Query('page') page: number): Promise<getSubscribeInvitationRes> {
     return this.invitationService.getSubscribeInvitation(uid, page)
+  }
+
+  @Post('setTop')
+  setTop(@Body('iid') iid: string, @Body('flag') flag: boolean) {
+    return this.invitationService.setTop(iid, flag)
+  }
+
+  @Post('setQuality')
+  setQuality(@Body('iid') iid: string, @Body('flag') flag: boolean) {
+    return this.invitationService.setQuality(iid, flag)
   }
 }

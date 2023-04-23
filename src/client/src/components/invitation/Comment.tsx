@@ -16,7 +16,12 @@ type Props = {
         floorer: boolean
     },
     comment: comment,
-    replys: reply[]
+    replys: reply[],
+    pOwner: string,
+    rote: {
+        admin: boolean,
+        owner: boolean
+    }
 }
 
 type comment = {
@@ -39,9 +44,9 @@ type reply = {
     name2?: string
 }
 
-export default function Comment({ owner, comment, replys }: Props): JSX.Element {
+export default function Comment({ owner, comment, replys, pOwner, rote }: Props): JSX.Element {
 
-    const { state, methods } = useComment(replys, comment)
+    const { state, methods } = useComment(replys, comment, pOwner)
 
     return (
         <div className={style['comment']}>
@@ -59,15 +64,9 @@ export default function Comment({ owner, comment, replys }: Props): JSX.Element 
                         content={<div style={{ display: 'flex', flexDirection: 'column' }}>
                             <Button theme="default" variant="text">
                                 查看
-                            </Button> <Button theme="default" variant="text">
+                            </Button> {(rote.admin || rote.owner) && <Button theme="default" variant="text" onClick={methods.deleteComment}>
                                 删除
-                            </Button> <Button theme="default" variant="text">
-                                添加好友
-                            </Button> <Button theme="default" variant="text">
-                                加入板块黑名单
-                            </Button> <Button theme="default" variant="text">
-                                加入个人黑名单
-                            </Button>
+                            </Button>}
                         </div>}
                         destroyOnClose={false}
                         hideEmptyPopup={false}
@@ -83,13 +82,13 @@ export default function Comment({ owner, comment, replys }: Props): JSX.Element 
                         <label>{getDate(comment.date)}</label>
                     </div>
                     <div className={style['comment-options-btns']}>
-                        <Button className={style['comment-options-btn']} size="small" variant="outline" theme={state.isLikeState ? 'warning' : 'success'} ghost>点赞：{state.lSumState}</Button>
+                        <Button className={style['comment-options-btn']} size="small" variant="outline" theme={state.isLikeState ? 'warning' : 'success'} ghost onClick={methods.setLike}>点赞：{state.lSumState}</Button>
                         <Button className={style['comment-options-btn']} size="small" variant="outline" theme="success" ghost onClick={methods.setComment}>评论：{state.rSumState}</Button>
                     </div>
                 </div>
                 {state.hasReplyState && <div className={style['comment-reply']}>
                     {
-                        state.replyState.map(reply => {
+                        state.replyState.map((reply, index) => {
                             return <div key={reply.cid1}>
                                 <div>
                                     <label className={style['comment-reply-user']}>{reply.name1}</label>
@@ -98,13 +97,17 @@ export default function Comment({ owner, comment, replys }: Props): JSX.Element 
                                     <label className={style['comment-reply-static']}>:</label>
                                     <label style={{ wordBreak: 'break-all' }} dangerouslySetInnerHTML={{ __html: reply.text }}></label>
                                 </div>
-                                <div className={style['comment-reply-btn']}><label>{getDate(reply.date)}</label><label onClick={() => methods.setRUserState({ uid: reply.uid1, name: reply.name1 })}>回复</label></div>
+                                <div className={style['comment-reply-btn']}>
+                                    <label>{getDate(reply.date)}</label>
+                                    <label onClick={() => methods.setRUserState({ uid: reply.uid1, name: reply.name1 })}>回复</label>
+                                    {(rote.admin || rote.owner) && <label style={{ color: 'darkcyan', cursor: 'pointer' }} onClick={() => methods.deleteReply(reply.cid1, index)}>删除</label>}
+                                </div>
                             </div>
                         })
                     }
                     <div className={style['comment-reply-more']}>
                         {comment.rSum > 2 && state.retractState && <div className={style['comment-reply-message']} onClick={() => methods.getReplys(0)}>
-                            <label>共{state.rSumState}条回复,</label><label style={{ color: 'darkcyan', cursor: 'pointer' }}>点击查看</label>
+                            <label>共{state.rSumState}条回复,</label><label style={{ color: 'darkcyan', cursor: 'pointer' }} onClick={() => methods.goFans(owner.uid)}>点击查看</label>
                         </div>}
                         {comment.rSum > 8 && !state.retractState && <div className={style['comment-reply-message']}>
                             <label>{new Array(Math.ceil(comment.rSum / 8)).fill(0).map((num, index) => {

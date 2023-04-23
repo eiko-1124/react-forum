@@ -14,6 +14,7 @@ import Notice from '@/components/communal/Notice'
 import Post from '@/components/plate/Post'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import axios from '@/core/axios'
+import dynamic from 'next/dynamic'
 
 type Props = {
     target?: target,
@@ -82,6 +83,8 @@ export const getStaticProps: GetStaticProps = async (content) => {
     return { props }
 }
 
+const MySearchBox = dynamic(() => import('@/components/plate/SearchBox'), { ssr: false })
+
 export default function index({ target, owner, tops, admins, notice }: Props): JSX.Element {
     const bgStr = 'url(http://localhost:3000/static/background/1.jpg)'
     return (
@@ -103,8 +106,8 @@ export default function index({ target, owner, tops, admins, notice }: Props): J
                         </section>
                         <section className={styles['main-ranking']}>
                             <section className={styles['main-ranking-sticky']}>
-                                <SearchBox></SearchBox>
-                                <Notice text={notice}></Notice>
+                                <MySearchBox></MySearchBox>
+                                <Notice text={notice} writable></Notice>
                                 <Grade pid={target.pid}></Grade>
                                 <Publish></Publish>
                                 <Administrators admins={admins}></Administrators>

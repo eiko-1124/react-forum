@@ -19,6 +19,8 @@ export interface dInvitation {
     owner: string,
     text: string,
     title: string,
+    top: number,
+    quality: number,
     acSum?: number,
     coSum?: number,
     lSum?: number,

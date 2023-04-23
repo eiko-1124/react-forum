@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import axios from "../axios";
 import { MessagePlugin } from "tdesign-react";
+import { stateMethod } from "../state";
 
 type reply = {
     cid1: string,
@@ -23,7 +24,7 @@ type comment = {
     isLike: boolean
 }
 
-export default function (replys: reply[], comment: comment) {
+export default function (replys: reply[], comment: comment, owner: string) {
 
     const route = useRouter()
     const [valueState, setValueState] = useState('')
@@ -57,8 +58,12 @@ export default function (replys: reply[], comment: comment) {
             if (res.res === 1) {
                 setReplyState([...replyState, res.reply])
                 setRSumState(rSumState + 1)
+                setValueState('')
+                stateMethod.setInfo()
                 MessagePlugin.info('评论成功', 3 * 1000)
             }
+            else if (res.res == 12) MessagePlugin.info('您在板块的黑名单内', 3 * 1000)
+            else if (res.res == 13) MessagePlugin.info('您在用户的黑名单内', 3 * 1000)
             else MessagePlugin.info('评论失败', 3 * 1000)
         } catch (error) {
             console.log(error)
@@ -73,6 +78,49 @@ export default function (replys: reply[], comment: comment) {
         } catch (error) {
             console.log(error)
         }
+    }
+
+    const setLike = async () => {
+        try {
+            const res = await axios.post('/admin/comment/setLike', { cid: comment.cid, flag: isLikeState, owner }) as { res: number, likeSum: number }
+            if (res.res == 1) {
+                setLSumState(res.likeSum)
+                setisLikeState(!isLikeState)
+                stateMethod.setInfo()
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const deleteReply = async (cid: string, index: number) => {
+        try {
+            const res = await axios.post('/admin/comment/deleteReply', { cid }) as { res: number }
+            if (res.res == 1) {
+                setRSumState(rSumState - 1)
+                replyState.splice(index, 1)
+                setReplyState([...replyState])
+                stateMethod.setInfo()
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const deleteComment = async () => {
+        try {
+            const res = await axios.post('/admin/comment/deleteComment', { cid: comment.cid }) as { res: number }
+            if (res.res == 1) {
+                stateMethod.deleteCommit(comment.cid)
+                stateMethod.setInfo()
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const goFans = (cid: string) => {
+        route.push(`/fans/1/${cid}`)
     }
 
     return {
@@ -91,7 +139,11 @@ export default function (replys: reply[], comment: comment) {
             postReply,
             setValueState,
             getReplys,
-            setRUserState
+            setRUserState,
+            setLike,
+            deleteReply,
+            deleteComment,
+            goFans
         }
     }
 }

@@ -17,7 +17,12 @@ export class InvitationController {
   }
 
   @Get('getSubstance')
-  getSubstance(@Query('iid') iid: string, @Query('pid') uid: string) {
+  getSubstance(@Query('iid') iid: string, @Query('id') uid: string) {
     return this.invitationService.getSubstance(iid, uid)
+  }
+
+  @Get('getRote')
+  getRote(@Query('id') uid: string, @Query('iid') iid: string) {
+    return this.invitationService.getRote(uid, iid)
   }
 }

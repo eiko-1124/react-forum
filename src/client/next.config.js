@@ -2,7 +2,7 @@
 
 const nextConfig = {
   reactStrictMode: true,
-  transpilePackages: ['tdesign-react']
+  transpilePackages: ['tdesign-react'],
 }
 
 module.exports = nextConfig

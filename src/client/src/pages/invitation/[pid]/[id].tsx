@@ -34,7 +34,9 @@ type invitation = {
     coSum: number,
     lSum: number,
     pSum: number,
-    date: string
+    date: string,
+    top: number,
+    quality: number
 }
 
 type admins = {

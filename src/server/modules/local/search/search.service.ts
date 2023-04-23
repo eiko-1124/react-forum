@@ -2,7 +2,7 @@ import { plate } from '#/entity/plate.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
-import { allRes, invitations, owner, plates, simpleSearchRes, target, users } from './dto/search.dto';
+import { allRes, invitations, owner, plates, simpleSearchRes, stationRes, target, users } from './dto/search.dto';
 import { user } from '#/entity/user.entity';
 import { invitation } from '#/entity/invitation.entity';
 
@@ -184,7 +184,7 @@ export class SearchService {
                 .addSelect('user.name', 'uName')
                 .where("invitation.title Like :lKeyWord", { lKeyWord: `%${keyWord}%` })
                 .orderBy('invitation.date')
-                .take(12)
+                .limit(12)
                 .offset(12 * page)
                 .getRawMany()
             return res
@@ -202,5 +202,22 @@ export class SearchService {
             console.log(error)
             return null
         }
+    }
+
+    async station(keyWord: string, pid: string, page: number): Promise<stationRes> {
+        const res: stationRes = {
+            res: 1,
+            sSum: 0,
+            stations: []
+        }
+        try {
+            const sRes = await this.invitationRepository.find({ select: { iid: true, plate: true, title: true, date: true }, where: { title: Like(`%${keyWord}%`), plate: pid }, take: 8, skip: page * 8 })
+            res.stations = sRes
+            res.sSum = await this.invitationRepository.count({ where: { title: Like(`%${keyWord}%`), plate: pid } })
+        } catch (error) {
+            console.log(error)
+            res.res = -1
+        }
+        return res
     }
 }

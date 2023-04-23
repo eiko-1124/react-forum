@@ -3,7 +3,8 @@ const stateMethod = {
     setInfoName: null,
     setInfoAvatar: null,
     setPublish: null,
-    setInfo: null
+    setInfo: null,
+    deleteCommit: null
 }
 
 const state = {

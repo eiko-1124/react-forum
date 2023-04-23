@@ -5,6 +5,7 @@ import { AuthMiddleware } from '#/middleware/Auth.middleware';
 import entity from './entity';
 import { ApiModule } from './modules/api.module';
 import { AppGateway } from './WebSocket/app.gateway';
+import { ChatService } from './modules/admin/chat/chat.service';
 
 @Module({
   imports: [
@@ -18,10 +19,11 @@ import { AppGateway } from './WebSocket/app.gateway';
       entities: entity,
       synchronize: false
     }),
+    TypeOrmModule.forFeature(entity),
     ApiModule,
-    NextModule
+    NextModule,
   ],
-  providers: [AppGateway]
+  providers: [AppGateway, ChatService]
 })
 export class AppModule implements NextModule {
   configure(consumer: MiddlewareConsumer) {

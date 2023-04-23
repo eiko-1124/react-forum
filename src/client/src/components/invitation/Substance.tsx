@@ -25,8 +25,10 @@ type invitation = {
     acSum: number,
     coSum: number,
     lSum: number,
-    pSum: number
-    date: string
+    pSum: number,
+    date: string,
+    top: number,
+    quality: number
 }
 
 type comments = {
@@ -70,8 +72,19 @@ export default function Substance({ invitation, owner, comments }: Props): JSX.E
         commentsState,
         likeState,
         lSumState,
+        ASumState,
+        CSumState,
+        roteState,
+        topState,
+        qualityState,
         setLike,
-        getComments
+        getComments,
+        setCollect,
+        collectState,
+        goFans,
+        deleteInvitation,
+        setTop,
+        setQuality
     } = useSubstance({ owner, comments, invitation })
 
     return (
@@ -87,17 +100,17 @@ export default function Substance({ invitation, owner, comments }: Props): JSX.E
             <h3 style={{ paddingRight: '1rem', position: 'relative' }}>{invitation.title}<Popup
                 attach="body"
                 content={<div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <Button theme="default" variant="text">
+                    <Button theme="default" variant="text" onClick={() => goFans(owner.uid)}>
                         查看
-                    </Button> <Button theme="default" variant="text">
-                        删除
-                    </Button> <Button theme="default" variant="text">
-                        添加好友
-                    </Button> <Button theme="default" variant="text">
-                        加入板块黑名单
-                    </Button> <Button theme="default" variant="text">
-                        加入个人黑名单
                     </Button>
+                    {roteState.admin && <Button theme="default" variant="text" onClick={() => setTop()}>
+                        {topState ? '取消置顶' : '置顶'}
+                    </Button>}
+                    {roteState.admin && <Button theme="default" variant="text" onClick={() => setQuality()}>
+                        {qualityState ? '取消加精' : '加精'}
+                    </Button>}{(roteState.owner || roteState.admin) && <Button theme="default" variant="text" onClick={() => deleteInvitation()}>
+                        删除
+                    </Button>}
                 </div>}
                 destroyOnClose={false}
                 hideEmptyPopup={false}
@@ -118,19 +131,19 @@ export default function Substance({ invitation, owner, comments }: Props): JSX.E
             <div className={style['substance-options']}>
                 <div className={style['substance-options-btns']}>
                     <Button className={style['substance-options-btn']} size="small" variant="outline" theme="success" ghost>只看楼主 </Button>
-                    <Button className={style['substance-options-btn']} size="small" variant="outline" theme="success" ghost>收藏：{invitation.coSum}</Button>
+                    <Button className={style['substance-options-btn']} size="small" variant="outline" theme={collectState ? 'warning' : 'success'} ghost onClick={setCollect}>收藏：{CSumState}</Button>
                     <Button className={style['substance-options-btn']} size="small" variant="outline" theme={likeState ? 'warning' : 'success'} ghost onClick={setLike}>点赞：{lSumState}</Button>
                 </div>
                 <div className={style['substance-options-labels']}>
                     <label>1楼</label>
                     <label>{getDate(invitation.date)}</label>
                     <label>浏览量：{vSumState}</label>
-                    <label>评论：{invitation.acSum}</label>
+                    <label>评论：{ASumState}</label>
                 </div>
             </div>
             <Divider style={{ margin: '0rem', marginBottom: '0.5rem' }}></Divider>
             {commentsState.map(comment => {
-                return <Comment comment={comment.comment} owner={comment.owner} replys={comment.replys} key={comment.comment.cid}></Comment>
+                return <Comment rote={roteState} pOwner={owner.uid} comment={comment.comment} owner={comment.owner} replys={comment.replys} key={comment.comment.cid}></Comment>
             })}
             <div className={style['substance-more']}>
                 <Pagination className={style['substance-pagination']} total={invitation.pSum} defaultPageSize={12} totalContent={false} showPageSize={false} onCurrentChange={getComments}></Pagination>

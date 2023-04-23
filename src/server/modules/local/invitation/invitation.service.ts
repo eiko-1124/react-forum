@@ -81,7 +81,9 @@ export class InvitationService {
                 owner: true,
                 text: true,
                 title: true,
-                date: true
+                date: true,
+                top: true,
+                quality: true
             },
             where: { iid }
         })
@@ -145,19 +147,20 @@ export class InvitationService {
         if (!uid) return 0
         const res: number = await this.invitationLikeRepository.count({ where: { iid, uid } })
         if (res === undefined || res === null) throw new Error('error')
-        return res
+        return res == 0 ? 0 : 1
     }
 
     async queryIsCollect(iid: string, uid: string): Promise<number> {
         if (!uid) return 0
         const res: number = await this.invitationCollectRepository.count({ where: { iid, uid } })
         if (res === undefined || res === null) throw new Error('error')
-        return res
+        return res == 0 ? 0 : 1
     }
 
     async setHistory(iid: string, uid: string): Promise<null> {
         if (!uid) return
-        await this.invitationHistoryRepository.save({ iid, uid })
+        const res = this.invitationHistoryRepository.findOne({ where: { iid, uid } })
+        if (!res) await this.invitationHistoryRepository.save({ iid, uid })
         return
     }
 
@@ -173,6 +176,25 @@ export class InvitationService {
             res.vSum = vSum
             res.isCollect = isCollect
             res.isLike = isLike
+        } catch (error) {
+            console.log(error)
+            res.res = -1
+        }
+        return res
+    }
+
+    async getRote(uid: string, iid: string) {
+        const res = {
+            res: 1,
+            admin: false,
+            owner: false
+        }
+        try {
+            if (!uid) return res
+            const oRes = await this.invitationRepository.findOne({ where: { owner: uid, iid } })
+            if (oRes) res['owner'] = true
+            const aRes = await this.plateSubscribeRepository.findOne({ where: { uid, pid: oRes.plate } })
+            if (aRes) res['admin'] = true
         } catch (error) {
             console.log(error)
             res.res = -1

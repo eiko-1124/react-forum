@@ -2,6 +2,7 @@ import { useRef } from "react"
 import axios from "../axios"
 import { MessagePlugin } from "tdesign-react"
 import Router from "next/router"
+import { stateMethod } from "../state"
 
 export default function () {
 
@@ -22,8 +23,13 @@ export default function () {
         const pid = Router.query['pid']
         try {
             const res = await axios.post('admin/invitation/publish', { pid, title: titleValue, text: editerValue }) as { res: number, id?: number }
-            if (res.res !== 1) throw new Error('post error')
-            Router.push(`/invitation/${pid}/${res.id}`)
+            if (res.res == 12) MessagePlugin.info('您在黑名单之中', 3 * 1000)
+            else if (res.res === 1) {
+                MessagePlugin.info('发布成功', 3 * 1000)
+                stateMethod.setInfo()
+                Router.push(`/invitation/${pid}/${res.id}`)
+            }
+            else throw new Error('post error')
         } catch (error) {
             console.log(error)
             MessagePlugin.info('发布失败', 3 * 1000)

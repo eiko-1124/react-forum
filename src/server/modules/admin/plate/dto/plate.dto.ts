@@ -61,3 +61,11 @@ export interface adminO {
 export interface unRes {
     res: number
 }
+
+export interface setNoticeRes {
+    res: number
+}
+
+export interface isAdminRes {
+    res: number
+}

@@ -8,6 +8,9 @@ import { invitationLike } from '#/entity/invitationLike.entity';
 import { invitationCollect } from '#/entity/invitationCollect.entity';
 import ac from '#/ac';
 import { invitationHistory } from '#/entity/invitationHistory.entity';
+import { NoticeService } from '../notice/notice.service';
+import { commit } from '#/entity/commit.entity';
+import { commitReply } from '#/entity/commitReply.entity';
 
 
 @Injectable()
@@ -21,7 +24,12 @@ export class InvitationService {
         @InjectRepository(invitationCollect)
         private invitationCollectRepository: Repository<invitationCollect>,
         @InjectRepository(invitationHistory)
-        private invitationHistoryRepository: Repository<invitationHistory>
+        private invitationHistoryRepository: Repository<invitationHistory>,
+        @InjectRepository(commit)
+        private commitRepository: Repository<commit>,
+        @InjectRepository(commitReply)
+        private commitReplyRepository: Repository<commitReply>,
+        private readonly noticeService: NoticeService
     ) { }
 
     async publish(pid: string, uid: string, title: string, text: string) {
@@ -31,9 +39,13 @@ export class InvitationService {
             res: 1
         }
         try {
-            const iid = createId()
-            await this.invitationRepository.insert({ plate: pid, owner: uid, iid, title, text })
-            res.id = iid
+            const black = await this.noticeService.isPlateBlackList(uid, pid)
+            if (!black) {
+                const iid = createId()
+                await this.invitationRepository.insert({ plate: pid, owner: uid, iid, title, text })
+                res.id = iid
+            }
+            else res.res = 12
         } catch (error) {
             console.log(error)
             res.res = -1
@@ -41,7 +53,7 @@ export class InvitationService {
         return res
     }
 
-    async setLike(iid: string, uid: string, flag: boolean, owner: string): Promise<likeRes> {
+    async setLike(uid: string, iid: string, flag: boolean, owner: string): Promise<likeRes> {
         const res: likeRes = {
             res: 1
         }
@@ -62,12 +74,15 @@ export class InvitationService {
         return res
     }
 
-    async setCollect(iid: string, uid: string, flag: boolean, floor: number): Promise<collectRes> {
+    async setCollect(uid: string, iid: string, flag: boolean, floor: number): Promise<collectRes> {
         const res: collectRes = {
             res: 1
         }
         try {
-            if (flag) await this.invitationCollectRepository.save({ uid, iid, floor })
+            if (flag) {
+                await this.invitationCollectRepository.save({ uid, iid, floor })
+                res.cSum = await this.invitationCollectRepository.count({ where: { iid } })
+            }
             else {
                 const site: invitationCollect = await this.invitationCollectRepository.findOne({ where: { uid, iid } })
                 this.invitationCollectRepository.remove(site)
@@ -91,6 +106,7 @@ export class InvitationService {
             const pRes: number = await this.invitationRepository.count({ where: { owner: uid } })
             for (let site of iRes) {
                 site.text = formatText(site.text)
+                console.log(site)
             }
             res.pSum = pRes
             res.adminInvitations = iRes
@@ -108,6 +124,26 @@ export class InvitationService {
         try {
             const iRes = await this.invitationRepository.findOne({ where: { iid } })
             await this.invitationRepository.remove(iRes)
+            await this.invitationHistoryRepository.createQueryBuilder()
+                .delete()
+                .where('i_id=:iid', { iid })
+                .execute()
+            await this.invitationCollectRepository.createQueryBuilder()
+                .delete()
+                .where('i_id=:iid', { iid })
+                .execute()
+            await this.invitationLikeRepository.createQueryBuilder()
+                .delete()
+                .where('i_id=:iid', { iid })
+                .execute()
+            await this.commitRepository.createQueryBuilder()
+                .delete()
+                .where('i_id=:iid', { iid })
+                .execute()
+            await this.commitReplyRepository.createQueryBuilder()
+                .delete()
+                .where('i_id=:iid', { iid })
+                .execute()
         } catch (error) {
             console.log(error)
             res.res = -1
@@ -164,7 +200,7 @@ export class InvitationService {
                 .addSelect('invitation.plate', 'plate')
                 .where('invitationHistory.u_id=:uid', { uid })
                 .orderBy('invitationHistory.date', 'ASC')
-                .take(6)
+                .limit(6)
                 .offset(page * 6)
                 .getRawMany()
             const pRes: number = await this.invitationHistoryRepository.count({ where: { uid } })
@@ -210,7 +246,7 @@ export class InvitationService {
                 .addSelect('invitationCollect.floor', 'floor')
                 .where('invitationCollect.u_id=:uid', { uid })
                 .orderBy('invitationCollect.date', 'ASC')
-                .take(6)
+                .limit(6)
                 .offset(page * 6)
                 .getRawMany()
             const pRes: number = await this.invitationCollectRepository.count({ where: { uid } })
@@ -261,8 +297,8 @@ export class InvitationService {
                 .addSelect('user.u_id', 'uid')
                 .addSelect('user.name', 'uName')
                 .where('user_fans.u_id_1=:uid', { uid })
-                .orderBy('invitation.date')
-                .take(12)
+                .orderBy('invitation.date', 'ASC')
+                .limit(12)
                 .offset(12 * page)
                 .getRawMany()
             res.subscribeInvitations = iRes
@@ -271,6 +307,36 @@ export class InvitationService {
                 .where('user_fans.u_id_1=:uid', { uid })
                 .getCount()
             res.iSum = sRes
+        } catch (error) {
+            console.log(error)
+            res.res = -1
+        }
+        return res
+    }
+
+    async setQuality(iid: string, flag: boolean) {
+        const res = {
+            res: 1
+        }
+        try {
+            const iRes = await this.invitationRepository.findOne({ where: { iid } })
+            if (flag) await this.invitationRepository.save({ ...iRes, quality: 0 })
+            else await this.invitationRepository.save({ ...iRes, quality: 1 })
+        } catch (error) {
+            console.log(error)
+            res.res = -1
+        }
+        return res
+    }
+
+    async setTop(iid: string, flag: boolean) {
+        const res = {
+            res: 1
+        }
+        try {
+            const iRes = await this.invitationRepository.findOne({ where: { iid } })
+            if (flag) await this.invitationRepository.save({ ...iRes, top: 0 })
+            else await this.invitationRepository.save({ ...iRes, top: 1 })
         } catch (error) {
             console.log(error)
             res.res = -1
